@@ -1,2 +1,2 @@
 # FitnessHub
-# FitnessHub
+- React, Express, TailwindCSS, PostgreSQL
