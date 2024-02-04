@@ -1,7 +1,7 @@
-class UserController {
-  static getUsers = (req, res) => {
-    res.status(200).send("this is a test");
-  };
-}
+const getUsers = (req, res) => {
+  res.status(200).send("Users Route!");
+};
 
-export default UserController;
+module.exports = {
+  getUsers,
+};
