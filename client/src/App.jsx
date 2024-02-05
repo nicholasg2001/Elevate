@@ -1,9 +1,15 @@
-function App() {
+import { Route, Routes } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
+import NotFoundPage from "./pages/NotFoundPage";
+const App = () => {
   return (
-    <div className="flex justify-center items-center text-4xl bg-cyan-500 text-white h-screen w-screen">
-      Hello World
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </>
   );
-}
+};
 
 export default App;
