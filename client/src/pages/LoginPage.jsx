@@ -1,9 +1,20 @@
+import { useState, useEffect } from "react";
 import loginModel from "/src/assets/loginmodel.png";
 
 const LoginPage = () => {
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
-    <div className="min-h-screen bg-gradient-to-b from-color4 to-gray-400 h-screen flex justify-center items-center">
-      <div className="h-2/3 w-2/3 flex justify-center items-center rounded-xl">
+    <div className="h-screen w-screen bg-gradient-to-b from-color4 to-gray-400 flex justify-center items-center">
+      <div className="h-2/3 w-5/6 flex justify-center items-center">
         <div className="p-8 rounded">
           <h1 className="text-white font-poppins text-6xl font-bold mb-2 pb-8">
             Welcome Back!
@@ -11,9 +22,9 @@ const LoginPage = () => {
           <p className="text-white font-poppins text-xl mb-6">
             Please enter your login information
           </p>
-          <p className="text-white font-poppins text-l pb-2">Email</p>
 
           <form>
+            <p className="text-white font-poppins text-l pb-2">Email</p>
             <input
               type="email"
               placeholder="Enter your email"
@@ -47,7 +58,7 @@ const LoginPage = () => {
             </div>
             <button
               type="submit"
-              className="text-lg font-poppins rounded-lg w-full bg-blue-600 text-white p-2 rounded mt-4 hover:bg-blue-500"
+              className="text-lg font-poppins rounded-lg w-full bg-blue-600 text-white p-2 mt-4 hover:bg-blue-500"
             >
               Login
             </button>
@@ -88,7 +99,7 @@ const LoginPage = () => {
             </a>
           </p>
         </div>
-        <img src={loginModel} alt="loginModel" className="w-1/2 h-auto"></img>
+        {width >= 1024 && <img src={loginModel} alt="loginModel" className="w-1/2 h-auto" />}
       </div>
     </div>
   );
