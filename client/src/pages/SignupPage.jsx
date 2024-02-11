@@ -1,12 +1,23 @@
+import { useState, useEffect } from "react";
 import SignupForm from "../components/SignupForm";
 import loginModel from "/src/assets/loginmodel.png";
 
 const SignupPage = () => {
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
-    <div className="min-h-screen bg-gradient-to-b from-color4 to-gray-400 h-screen flex justify-center items-center">
-      <div className="h-2/3 w-2/3 flex justify-center items-center rounded-xl">
-        <div className="p-8 rounded">
-          <h1 className="text-white font-poppins text-6xl font-bold mb-2 pb-8">
+    <div className="h-screen bg-gradient-to-b from-color4 to-gray-400 flex justify-center">
+      <div className="h-full w-4/5 flex gap-10 justify-center items-center rounded-xl">
+        <div className="p-8 xl:w-1/3 sm:w-2/3 w-full">
+          <h1 className="text-white font-poppins text-5xl md:text-6xl font-bold mb-2 pb-8 text-center">
             Sign up
           </h1>
 
@@ -19,7 +30,13 @@ const SignupPage = () => {
             </a>
           </p>
         </div>
-        <img src={loginModel} alt="loginModel" className="w-1/2 h-auto"></img>
+        {width > 768 && (
+          <img
+            src={loginModel}
+            alt="loginModel"
+            className="xl:w-1/2 w-2/5 h-auto"
+          />
+        )}
       </div>
     </div>
   );
