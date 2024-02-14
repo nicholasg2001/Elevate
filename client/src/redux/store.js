@@ -1,5 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit';
-import authSliceReducer from '../redux/feats/authSlice/authSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
+import authSliceReducer from "../redux/feats/auth/authSlice";
 
 const store = configureStore({
   reducer: {
@@ -8,3 +9,6 @@ const store = configureStore({
 });
 
 export default store;
+
+export const useAppDispatch = () => useDispatch();
+export const useAppSelector = useSelector;
