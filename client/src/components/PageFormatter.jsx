@@ -1,8 +1,9 @@
 import { Outlet } from "react-router-dom";
 import { useAppSelector } from "../redux/store";
+import { NavLink } from "react-router-dom";
 const PageFormatter = () => {
   const { user } = useAppSelector((state) => state.auth);
-  if (Object.keys(user).length === 0) {
+  if (user == null) {
     return (
       <div>
         <h1>Unauthorized</h1>

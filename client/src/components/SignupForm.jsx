@@ -1,33 +1,111 @@
+import { useState } from "react";
+import { useAppDispatch } from "../redux/store";
+import { useNavigate } from "react-router-dom";
+import { registerUser } from "../redux/feats/auth/authActions";
 const SignupForm = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const formHandler = async (event) => {
+    event.preventDefault();
+    if (password !== confirmPassword) {
+      setPasswordError(true);
+      return;
+    }
+    const newUser = {
+      name: name,
+      email: email,
+      password: password,
+      weight: weight,
+      height: height,
+    };
+    try {
+      await dispatch(registerUser(newUser)).unwrap();
+      navigate("/auth/main");
+    } catch (error) {
+      let errorMessage = error.response.data.error;
+      setEmailError(errorMessage);
+    }
+    form.current.reset();
+  };
   return (
-    <form>
+    <form onSubmit={formHandler}>
       <p className="text-white font-poppins text-l pb-2">Full Name</p>
       <input
-        type="email"
-        placeholder="Firstname Lastname"
+        type="text"
+        placeholder="John Doe"
         className="text-white placeholder-white font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg"
+        onChange={(event) => setName(event.target.value)}
       />
       <p className="text-white font-poppins text-l mt-4 pb-2">Email</p>
       <input
         type="email"
         placeholder="Enter your email"
-        className="text-white placeholder-white font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg"
+        className={`text-white placeholder-white font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg${
+          emailError ? "border-rose-500" : ""
+        }`}
+        onChange={(event) => setEmail(event.target.value)}
       />
-
+      {emailError && <span className="text-xs text-red-500">{emailError}</span>}
       <p className="text-white font-poppins text-l mt-4 pb-2">Password</p>
       <input
         type="password"
         placeholder="Enter your password"
-        className="text-white placeholder-white font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg"
+        className={`text-white placeholder-white font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg ${
+          passwordError ? "border-rose-500" : " border-gray-500"
+        }`}
+        onChange={(event) => setPassword(event.target.value)}
       />
+      {passwordError && (
+        <span className="text-xs text-red-500">
+          Password and confirm password don't match
+        </span>
+      )}
       <p className="text-white font-poppins text-l mt-4 pb-2">
         Confirm Password
       </p>
       <input
         type="password"
         placeholder="Confirm password"
-        className="text-white placeholder-white font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg"
+        className={`text-white placeholder-white font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg${
+          passwordError ? "border-rose-500" : " border-gray-500"
+        }`}
+        onChange={(event) => setConfirmPassword(event.target.value)}
       />
+      {passwordError && (
+        <span className="text-xs text-red-500">
+          Password and confirm password don't match
+        </span>
+      )}
+      <div className="flex justify-center gap-4">
+        <div>
+          <p className="text-white font-poppins text-l mt-4 pb-2">Height</p>
+          <input
+            type="text"
+            placeholder="Height"
+            className="text-white placeholder-white font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg"
+            onChange={(event) => setHeight(event.target.value)}
+          />
+        </div>
+        <div>
+          <p className="text-white font-poppins text-l mt-4 pb-2">Weight</p>
+          <input
+            type="number"
+            placeholder="Enter Weight"
+            className="text-white placeholder-white font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg"
+            onChange={(event) => setWeight(event.target.value)}
+          />
+        </div>
+      </div>
       <div className="flex justify-between items-center">
         <div className="flex items-center">
           <input
@@ -46,9 +124,9 @@ const SignupForm = () => {
       </div>
       <button
         type="submit"
-        className="text-lg font-poppins rounded-lg w-full bg-blue-600 text-white p-2 rounded mt-4 hover:bg-blue-500"
+        className="text-lg font-poppins rounded-lg w-full bg-blue-600 text-white p-2 mt-4 hover:bg-blue-500"
       >
-        Login
+        Sign up!
       </button>
       <button className="py-3.5 px-4 border rounded-lg border-gray-700 flex justify-center items-center w-full mt-4 hover:shadow-xl">
         <svg
