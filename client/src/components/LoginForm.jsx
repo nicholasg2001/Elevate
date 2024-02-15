@@ -1,18 +1,68 @@
+import { useState } from "react";
+import { loginUser } from "../redux/feats/auth/authActions";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../redux/store";
+useAppDispatch;
 const LoginForm = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [emailErrorMessage, setEmailErrorMessage] = useState();
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState();
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const formHandler = async (event) => {
+    event.preventDefault();
+    try {
+      await dispatch(loginUser({ email, password })).unwrap();
+      navigate("/auth/main"); // TODO: change to proper main page component.
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        let errorMessage = error.response.data.error;
+        if (errorMessage.includes("Email")) {
+          setEmailError(true);
+          setEmailErrorMessage(errorMessage);
+        } else {
+          setEmailError(false);
+        }
+        if (errorMessage.includes("password")) {
+          setPasswordError(true);
+          setPasswordErrorMessage(errorMessage);
+        }
+      }
+    }
+  };
+
   return (
-    <form>
+    <form onSubmit={formHandler}>
       <input
         type="email"
         placeholder="Enter your email"
-        className="text-white placeholder-white font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg"
+        className={`text-white placeholder-white font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg
+            ${emailError ? "border-rose-500" : ""}
+        `}
+        onChange={(event) => setEmail(event.target.value)}
       />
+      {emailError && (
+        <span className="text-xs text-red-500">{emailErrorMessage}</span>
+      )}
 
       <p className="text-white font-poppins text-l mt-4 pb-2">Password</p>
       <input
         type="password"
         placeholder="Enter your password"
-        className="text-white placeholder-white font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg"
+        className={`text-white placeholder-white font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg
+            ${passwordError ? "border-rose-500" : ""}
+        `}
+        onChange={(event) => setPassword(event.target.value)}
       />
+      {passwordError && (
+        <span className="text-xs text-red-500">{passwordErrorMessage}</span>
+      )}
       <div className="flex justify-between items-center">
         <div className="flex items-center">
           <input
@@ -31,7 +81,7 @@ const LoginForm = () => {
       </div>
       <button
         type="submit"
-        className="text-lg font-poppins rounded-lg w-full bg-blue-600 text-white p-2 rounded mt-4 hover:bg-blue-500"
+        className="text-lg font-poppins rounded-lg w-full bg-blue-600 text-white p-2 mt-4 hover:bg-blue-500"
       >
         Login
       </button>
