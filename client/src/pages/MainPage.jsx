@@ -7,7 +7,7 @@ const MainPage = () => {
         <div className="flex justify-center flex-col">
           <p>ID: {user.user_id}</p>
           <p>Email: {user.email}</p>
-          <p>Height: user.height</p>
+          <p>Height: {user.height}</p>
           <p>Weight: {user.weight}</p>
         </div>
       </div>
