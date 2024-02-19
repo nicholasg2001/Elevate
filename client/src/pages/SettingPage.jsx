@@ -1,20 +1,20 @@
 import { useState } from "react";
 import Tab from "../components/Settings/Tab";
-import UserTab from "../components/Settings/UserTab";
+import UserInfoTab from "../components/Settings/UserInfoTab";
 import PasswordTab from "../components/Settings/PasswordTab";
 import GoalsTab from "../components/Settings/GoalsTab";
 
 const SettingPage = () => {
-  const [currentTab, setCurrentTab] = useState("Profile");
+  const [currentTab, setCurrentTab] = useState("UserInfo");
   const tabHandler = (tab) => {
     setCurrentTab(tab);
   };
 
   return (
-    <div className="h-screen w-screen bg-cyan-400">
+    <div className="h-screen w-screen  bg-gradient-to-b from-color7 to-color3 p-4">
       <div className="flex gap-4">
         <Tab getTab={tabHandler} activeTab={currentTab} />
-        {currentTab === "User" && <UserTab />}
+        {currentTab === "UserInfo" && <UserInfoTab />}
         {currentTab === "Password" && <PasswordTab />}
         {currentTab === "Goals" && <GoalsTab />}
       </div>

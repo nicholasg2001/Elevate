@@ -4,19 +4,23 @@ import { GiStairsGoal } from "react-icons/gi";
 const Tab = (props) => {
   return (
     <>
-      <ul className="flex-column space-y space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-4 mb-4 md:mb-0">
+      <ul className="flex-column space-y space-y-4 text-sm font-medium md:me-4 mb-4 md:mb-0">
         <li>
           <div
-            className={`inline-flex items-center px-4 py-3 text-white bg-blue-700 rounded-lg active w-full dark:bg-blue-600 cursor-pointer`}
-            onClick={() => props.getTab("User")}
+            className={`inline-flex items-center px-4 py-3 text-white rounded-lg w-full border cursor-pointer ${
+              props.activeTab === "UserInfo" && "bg-blue-600 border-none"
+            }`}
+            onClick={() => props.getTab("UserInfo")}
           >
             <HiUserCircle size={20} />
-            Profile
+            User Info
           </div>
         </li>
         <li>
           <div
-            className={`inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer`}
+            className={`inline-flex items-center px-4 py-3 rounded-lg w-full border cursor-pointer ${
+              props.activeTab === "Password" && "bg-blue-600 border-none"
+            }`}
             onClick={() => props.getTab("Password")}
           >
             <RiLockPasswordFill size={20} />
@@ -25,7 +29,9 @@ const Tab = (props) => {
         </li>
         <li>
           <div
-            className={`inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer`}
+            className={`inline-flex items-center px-4 py-3 rounded-lg w-full border cursor-pointer ${
+              props.activeTab === "Goals" && "bg-blue-600 border-none"
+            }`}
             onClick={() => props.getTab("Goals")}
           >
             <GiStairsGoal size={20} />
