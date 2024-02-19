@@ -32,34 +32,34 @@ const Navbar = () => {
             </Link>
           </li>
           {user != null ? (
-            <li>
-              <Dropdown
-                arrowIcon={false}
-                inline
-                label={
-                  <AccountCircleIcon
-                    fontSize="large"
-                    color="disabled"
-                    style={{ color: "white" }}
-                  />
-                }
-              >
-                <Dropdown.Header>
-                  <span className="font-poppins block text-sm">
-                    {user.name}
-                  </span>
-                  <span className="font-poppins block truncate text-sm font-medium">
-                    {user.email}
-                  </span>
-                </Dropdown.Header>
-                <Dropdown.Item className="font-poppins">
-                  Dashboard
-                </Dropdown.Item>
+            <Dropdown
+              arrowIcon={false}
+              inline
+              label={
+                <AccountCircleIcon
+                  fontSize="large"
+                  color="disabled"
+                  style={{ color: "white" }}
+                />
+              }
+            >
+              <Dropdown.Header>
+                <span className="block text-sm text-black">{user.name}</span>
+                <span className="font-poppins block truncate text-black text-sm font-medium">
+                  {user.email}
+                </span>
+              </Dropdown.Header>
+              <Dropdown.Item className="font-poppins text-black">
+                Dashboard
+              </Dropdown.Item>
+              <Link to={"/auth/setting"} className="text-black">
                 <Dropdown.Item className="font-poppins">Settings</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item className="font-poppins">Sign Out</Dropdown.Item>
-              </Dropdown>
-            </li>
+              </Link>
+              <Dropdown.Divider />
+              <Dropdown.Item className="font-poppins text-black">
+                Sign Out
+              </Dropdown.Item>
+            </Dropdown>
           ) : (
             <>
               <li>

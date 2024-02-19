@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import PageFormatter from "./components/PageFormatter";
 import MainPage from "./pages/MainPage";
+import SettingPage from "./pages/SettingPage";
 const App = () => {
   return (
     <>
@@ -15,6 +16,7 @@ const App = () => {
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/auth" element={<PageFormatter />}>
           <Route path="main" element={<MainPage />} />
+          <Route path="setting" element={<SettingPage />} />
         </Route>
       </Routes>
     </>
