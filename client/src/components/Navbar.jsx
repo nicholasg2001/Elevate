@@ -3,8 +3,11 @@ import elevateLogo from "/src/assets/logo.png";
 import { useAppSelector } from "../redux/store";
 import { Dropdown } from "flowbite-react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useAppDispatch } from "../redux/store";
+import { logout } from "../redux/feats/auth/authSlice";
 const Navbar = () => {
   const { user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
   return (
     <nav className="bg-color7 border-b border-gray-400 pt-12 pb-6">
@@ -52,12 +55,17 @@ const Navbar = () => {
                     {user.email}
                   </span>
                 </Dropdown.Header>
-                <Dropdown.Item className="font-poppins">
+                <Link to={'/auth/dashboard'}><Dropdown.Item className="font-poppins">
                   Dashboard
                 </Dropdown.Item>
-                <Dropdown.Item className="font-poppins">Settings</Dropdown.Item>
+                </Link>
+                <Link to={'/auth/settings'}>
+                  <Dropdown.Item className="font-poppins">Settings</Dropdown.Item>
+                  </Link>
                 <Dropdown.Divider />
-                <Dropdown.Item className="font-poppins">Sign Out</Dropdown.Item>
+                <Link to={'/'} onClick={() => dispatch(logout())}>
+                  <Dropdown.Item className="font-poppins">Sign out</Dropdown.Item>
+                  </Link>
               </Dropdown>
             </li>
           ) : (
