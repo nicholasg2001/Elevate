@@ -11,8 +11,8 @@ const SettingPage = () => {
   };
 
   return (
-    <div className="h-screen w-screen  bg-gradient-to-b from-color7 to-color3 p-4">
-      <div className="flex gap-4">
+    <div className="h-screen w-screen bg-gradient-to-b from-color7 to-color3 p-4">
+      <div className="flex gap-4 justify-center">
         <Tab getTab={tabHandler} activeTab={currentTab} />
         {currentTab === "UserInfo" && <UserInfoTab />}
         {currentTab === "Password" && <PasswordTab />}
