@@ -1,24 +1,25 @@
-import { Tabs } from "flowbite-react";
-import { HiUserCircle } from "react-icons/hi";
-import { RiLockPasswordFill } from "react-icons/ri";
-import { GiStairsGoal } from "react-icons/gi";
+import { useState } from "react";
+import Tab from "../components/Settings/Tab";
+import UserTab from "../components/Settings/UserTab";
+import PasswordTab from "../components/Settings/PasswordTab";
+import GoalsTab from "../components/Settings/GoalsTab";
 
-function SettingPage() {
+const SettingPage = () => {
+  const [currentTab, setCurrentTab] = useState("Profile");
+  const tabHandler = (tab) => {
+    setCurrentTab(tab);
+  };
+
   return (
-    <div className="bg-slate-300">
-      <Tabs aria-label="Full width tabs" style="fullWidth">
-        <Tabs.Item active title="User Info" icon={HiUserCircle}>
-          User Info
-        </Tabs.Item>
-        <Tabs.Item title="Password" icon={RiLockPasswordFill}>
-          Password
-        </Tabs.Item>
-        <Tabs.Item title="Goals" icon={GiStairsGoal}>
-          Goals
-        </Tabs.Item>
-      </Tabs>
+    <div className="h-screen w-screen bg-cyan-400">
+      <div className="flex gap-4">
+        <Tab getTab={tabHandler} activeTab={currentTab} />
+        {currentTab === "User" && <UserTab />}
+        {currentTab === "Password" && <PasswordTab />}
+        {currentTab === "Goals" && <GoalsTab />}
+      </div>
     </div>
   );
-}
+};
 
 export default SettingPage;
