@@ -1,16 +1,78 @@
-const UserInfoTab = () => {
+import { useState } from "react";
+import { useUpdateUserMutation } from "../../redux/services/UserService";
+const UserInfoTab = ({ user }) => {
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [height, setHeight] = useState(user.height);
+  const [weight, setWeight] = useState(user.weight);
+  const [updateUser, { isLoading }] = useUpdateUserMutation();
+
+  const formHandler = async (event) => {
+    event.preventDefault();
+    try {
+      await updateUser({
+        name: name,
+        email: email,
+        height: height,
+        weight: weight,
+      });
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  };
   return (
     <div className="p-6 bg-gray-50 text-medium text-gray-500 rounded-lg w-1/2">
       <h3 className="text-lg font-bold text-gray-900 mb-2">User Info</h3>
-      <p className="mb-2">
-        This is some placeholder content the User Info tab's associated content,
-        clicking another tab will toggle the visibility of this one for the
-        next.
-      </p>
-      <p>
-        The tab JavaScript swaps classes to control the content visibility and
-        styling.
-      </p>
+      <form onSubmit={formHandler}>
+        <div className="flex justify-center gap-4">
+          <div className="w-1/2">
+            <label className="font-poppins text-md pb-2">Full Name</label>
+            <input
+              type="text"
+              placeholder={user.name}
+              className="font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg"
+              onChange={(event) => setName(event.target.value)}
+            />
+          </div>
+          <div className="w-1/2">
+            <label className="font-poppins text-md pb-2">Email</label>
+            <input
+              type="email"
+              placeholder={user.email}
+              className="font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg"
+              onChange={(event) => setEmail(event.target.value)}
+            />
+          </div>
+        </div>
+        <div className="flex justify-center gap-4">
+          <div className="w-1/2">
+            <label className="font-poppins text-md pb-2">Height</label>
+            <input
+              type="text"
+              placeholder={user.height}
+              className="font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg"
+              onChange={(event) => setHeight(event.target.value)}
+            />
+          </div>
+          <div className="w-1/2">
+            <label className="font-poppins text-md pb-2">Weight</label>
+            <input
+              type="number"
+              placeholder={user.weight}
+              className="font-poppins w-full p-2 mb-4 border border-gray-500 rounded-lg bg-transparent shadow-lg"
+              onChange={(event) => setWeight(event.target.value)}
+            />
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="text-lg font-poppins rounded-lg w-1/2 bg-green-600 text-white p-2 mt-4 hover:bg-green-500"
+          >
+            Save Changes
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

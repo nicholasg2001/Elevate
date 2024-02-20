@@ -29,24 +29,12 @@ const getUserByID = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const userId = req.user.data.user_id;
-    console.log(userId);
 
-    // Validate req.body here if necessary
-
-    // Perform the update
-    const updatedUser = await db.none(
-      "UPDATE users SET name = $2, email = $3, password = $4, height = $5, weight = $6 WHERE user_id = $1",
-      [
-        userId,
-        req.body.name,
-        req.body.email,
-        req.body.password,
-        req.body.height,
-        req.body.weight,
-      ]
+    await db.none(
+      "UPDATE users SET name = $2, email = $3, height = $4, weight = $5 WHERE user_id = $1",
+      [userId, req.body.name, req.body.email, req.body.height, req.body.weight]
     );
 
-    // Response
     res.status(200).json({ message: "User updated successfully." });
   } catch (error) {
     console.error("Error updating user:", error);

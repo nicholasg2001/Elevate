@@ -5,7 +5,7 @@ const PasswordTab = () => {
         Password Tab
       </h3>
       <p className="mb-2">
-        This is some placeholder content the Profile tab's associated content,
+        This is some placeholder content the Password tab's associated content,
         clicking another tab will toggle the visibility of this one for the
         next.
       </p>
