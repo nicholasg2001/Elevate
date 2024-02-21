@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import elevateLogo from "/src/assets/logo.png";
 import { useAppSelector } from "../redux/store";
+import { useAppDispatch } from "../redux/store";
 import { Dropdown } from "flowbite-react";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { RiAccountCircleFill } from "react-icons/ri";
+import { logout } from "../redux/feats/auth/authSlice";
 const Navbar = () => {
   const { user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
 
   return (
     <nav className="bg-color7 border-b border-gray-400 pt-12 pb-6">
@@ -36,8 +39,8 @@ const Navbar = () => {
               arrowIcon={false}
               inline
               label={
-                <AccountCircleIcon
-                  fontSize="large"
+                <RiAccountCircleFill
+                  size={40}
                   color="disabled"
                   style={{ color: "white" }}
                 />
@@ -49,16 +52,24 @@ const Navbar = () => {
                   {user.email}
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item className="font-poppins text-black">
-                Dashboard
-              </Dropdown.Item>
-              <Link to={"/auth/setting"} className="text-black">
-                <Dropdown.Item className="font-poppins">Settings</Dropdown.Item>
+              <Link to={"/auth/dashboard"}>
+                <Dropdown.Item className="font-poppins text-black">
+                  {" "}
+                  Dashboard{" "}
+                </Dropdown.Item>
+              </Link>
+              <Link to={"/auth/setting"}>
+                <Dropdown.Item className="font-poppins text-black">
+                  Settings
+                </Dropdown.Item>
               </Link>
               <Dropdown.Divider />
-              <Dropdown.Item className="font-poppins text-black">
-                Sign Out
-              </Dropdown.Item>
+              <Link to={"/"} onClick={() => dispatch(logout())}>
+                <Dropdown.Item className="font-poppins text-black">
+                  {" "}
+                  Sign Out{" "}
+                </Dropdown.Item>
+              </Link>
             </Dropdown>
           ) : (
             <>
