@@ -6,6 +6,7 @@ import SignupPage from "./pages/SignupPage";
 import PageFormatter from "./components/PageFormatter";
 import MainPage from "./pages/MainPage";
 import SettingPage from "./pages/SettingPage";
+import WorkoutPage from "./pages/WorkoutPage";
 const App = () => {
   return (
     <>
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/auth" element={<PageFormatter />}>
           <Route path="main" element={<MainPage />} />
           <Route path="setting" element={<SettingPage />} />
+          <Route path="exercises" element={<WorkoutPage />} />
         </Route>
       </Routes>
     </>

@@ -26,7 +26,10 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/exercises" className="font-poppins text-white text-2xl">
+            <Link
+              to="/auth/exercises"
+              className="font-poppins text-white text-2xl"
+            >
               Exercises
             </Link>
           </li>
