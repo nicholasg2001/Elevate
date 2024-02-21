@@ -18,6 +18,7 @@ const PasswordTab = () => {
         newPassword: newPasswordRef.current.value,
         confirmNewPassword: newConfirmedPasswordRef.current.value,
       }).unwrap();
+      resetForm();
     } catch (error) {
       let errorMessage = error.data.error;
       if (errorMessage.includes("Incorrect")) {
@@ -28,6 +29,15 @@ const PasswordTab = () => {
       }
       setErrorMessage(errorMessage);
     }
+  };
+
+  const resetForm = () => {
+    currentPasswordRef.current.value = "";
+    newPasswordRef.current.value = "";
+    newConfirmedPasswordRef.current.value = "";
+    setErrorMessage("");
+    setIsCurrentPasswordError(false);
+    setIsCurrentPasswordError(false);
   };
 
   return (
