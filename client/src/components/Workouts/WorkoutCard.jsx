@@ -1,25 +1,26 @@
 import Legs from "/src/assets/workouts/legs.png";
-const WorkoutCard = () => {
+const WorkoutCard = ({ img, muscle, difficulty, type }) => {
   return (
-    <div class="w-1/4 border border-gray-200 rounded-lg shadow">
+    <div class="w-1/4 border border-gray-300 rounded-lg shadow-xl">
       <div className="flex justify-center">
-        <img class="rounded-t-lg h-70 h-44" src={Legs} alt="" />
+        <img class="rounded-t-lg h-70 h-44" src={img} alt="" />
       </div>
-      <div class="p-5 bg-slate-100">
+      <div class="p-5 bg-slate-300 rounded-b-lg">
         <a href="#">
           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
             Single Leg Press
           </h5>
         </a>
         <p class="mb-3 font-normal text-gray-900">
-          <span className=" text-black font-bold">Muscle:</span> Legs
+          <span className=" text-black font-bold">Muscle:</span> {muscle}
         </p>
         <div className="flex gap-3">
           <p class="mb-3 font-normal text-gray-900 ">
-            <span className=" text-black font-bold">Difficulty:</span> Easy
+            <span className=" text-black font-bold">Difficulty:</span>{" "}
+            {difficulty}
           </p>
           <p class="mb-3 font-normal text-gray-900">
-            <span className=" text-black font-bold">Type:</span> Strength
+            <span className=" text-black font-bold">Type:</span> {type}
           </p>
         </div>
         <div className="flex justify-between">
