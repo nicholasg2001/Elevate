@@ -8,7 +8,6 @@ export const loginUser = createAsyncThunk(
   async (user, { rejectWithValue }) => {
     try {
       const data = await Axios.post(`${BASE_URL}/login`, user);
-      localStorage.setItem("token", data.data.token); // consider removing
       return data;
     } catch (error) {
       return rejectWithValue(error);

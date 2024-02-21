@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import elevateLogo from "/src/assets/logo.png";
 import { useAppSelector } from "../redux/store";
-import { Dropdown } from "flowbite-react";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useAppDispatch } from "../redux/store";
+import { Dropdown } from "flowbite-react";
+import { RiAccountCircleFill } from "react-icons/ri";
 import { logout } from "../redux/feats/auth/authSlice";
+
 const Navbar = () => {
   const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
@@ -25,7 +26,10 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/exercises" className="font-poppins text-white text-2xl">
+            <Link
+              to="/auth/exercises"
+              className="font-poppins text-white text-2xl"
+            >
               Exercises
             </Link>
           </li>
@@ -35,39 +39,42 @@ const Navbar = () => {
             </Link>
           </li>
           {user != null ? (
-            <li>
-              <Dropdown
-                arrowIcon={false}
-                inline
-                label={
-                  <AccountCircleIcon
-                    fontSize="large"
-                    color="disabled"
-                    style={{ color: "white" }}
-                  />
-                }
-              >
-                <Dropdown.Header>
-                  <span className="font-poppins block text-sm">
-                    {user.name}
-                  </span>
-                  <span className="font-poppins block truncate text-sm font-medium">
-                    {user.email}
-                  </span>
-                </Dropdown.Header>
-                <Link to={'/auth/dashboard'}><Dropdown.Item className="font-poppins">
-                  Dashboard
+            <Dropdown
+              arrowIcon={false}
+              inline
+              label={
+                <RiAccountCircleFill
+                  size={40}
+                  color="disabled"
+                  style={{ color: "white" }}
+                />
+              }
+            >
+              <Dropdown.Header>
+                <span className="block text-sm text-black">{user.name}</span>
+                <span className="font-poppins block truncate text-black text-sm font-medium">
+                  {user.email}
+                </span>
+              </Dropdown.Header>
+              <Link to={"/auth/dashboard"}>
+                <Dropdown.Item className="font-poppins text-black">
+                  {" "}
+                  Dashboard{" "}
                 </Dropdown.Item>
-                </Link>
-                <Link to={'/auth/settings'}>
-                  <Dropdown.Item className="font-poppins">Settings</Dropdown.Item>
-                  </Link>
-                <Dropdown.Divider />
-                <Link to={'/'} onClick={() => dispatch(logout())}>
-                  <Dropdown.Item className="font-poppins">Sign out</Dropdown.Item>
-                  </Link>
-              </Dropdown>
-            </li>
+              </Link>
+              <Link to={"/auth/setting"}>
+                <Dropdown.Item className="font-poppins text-black">
+                  Settings
+                </Dropdown.Item>
+              </Link>
+              <Dropdown.Divider />
+              <Link to={"/"} onClick={() => dispatch(logout())}>
+                <Dropdown.Item className="font-poppins text-black">
+                  {" "}
+                  Sign Out{" "}
+                </Dropdown.Item>
+              </Link>
+            </Dropdown>
           ) : (
             <>
               <li>
