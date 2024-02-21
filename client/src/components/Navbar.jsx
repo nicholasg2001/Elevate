@@ -5,6 +5,7 @@ import { useAppDispatch } from "../redux/store";
 import { Dropdown } from "flowbite-react";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { logout } from "../redux/feats/auth/authSlice";
+
 const Navbar = () => {
   const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
