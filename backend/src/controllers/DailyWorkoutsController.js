@@ -1,4 +1,3 @@
-const pgp = require('pg-promise')();
 const db = require("../database/database");
 const getDailyWorkouts = async (req, res) => {
     try {
@@ -13,7 +12,6 @@ const getDailyWorkouts = async (req, res) => {
 };
 const getDailyWorkoutsbyDate = async (req, res) => {
     const dailyworkouts_id = req.params.date;
-    console.log(dailyworkouts_id);
     try {
         const dailyworkouts = await db.oneOrNone("SELECT * FROM dailyworkouts WHERE dailyworkouts_id = $1", [dailyworkouts_id]);
         if (dailyworkouts) {
