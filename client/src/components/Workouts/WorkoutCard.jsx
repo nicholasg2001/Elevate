@@ -1,29 +1,28 @@
 import { openWorkoutModal } from "../../redux/feats/global/globalSlice";
 import { useAppDispatch } from "../../redux/store";
-const WorkoutCard = ({ img, muscle, difficulty, type }) => {
+const WorkoutCard = ({ name, img, muscle, difficulty, type }) => {
   const dispatch = useAppDispatch();
   return (
-    <div className="w-1/4 border border-gray-300 rounded-lg shadow-xl">
+    <div className="w-full lg:w-5/6 border border-gray-300 rounded-lg shadow-xl">
       <div className="flex justify-center">
-        <img className="rounded-t-lg h-70 h-44" src={img} alt="" />
+        <img className="rounded-t-lg h-44" src={img} alt="" />
       </div>
       <div className="p-5 bg-slate-300 rounded-b-lg">
-        <a href="#">
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-            Single Leg Press
-          </h5>
-        </a>
+        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+          {name}
+        </h5>
         <p className="mb-3 font-normal text-gray-900">
           <span className=" text-black font-bold">Muscle:</span> {muscle}
         </p>
-        <div className="flex gap-3">
-          <p className="mb-3 font-normal text-gray-900 ">
-            <span className=" text-black font-bold">Difficulty:</span>{" "}
-            {difficulty}
-          </p>
-          <p className="mb-3 font-normal text-gray-900">
-            <span className="text-black font-bold">Type:</span> {type}
-          </p>
+        <div className="flex lg:gap-24 gap-32">
+          <div className="flex flex-col font-normal text-gray-900 ">
+            <span className=" text-black font-bold">Difficulty:</span>
+            <span>{difficulty}</span>
+          </div>
+          <div className="flex flex-col  mb-3 font-normal text-gray-900 ">
+            <span className="text-black font-bold">Type:</span>
+            <span>{type}</span>
+          </div>
         </div>
         <div className="flex justify-between">
           <button className="inline-flex items-center justify-end px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

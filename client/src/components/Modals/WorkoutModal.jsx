@@ -21,7 +21,7 @@ const WorkoutModal = () => {
     <Modal
       show={isModalOpen}
       onClose={() => dispatch(closeWorkoutModal())}
-      size="md"
+      size="sm"
       position={"center"}
     >
       <Modal.Header>Add Workout</Modal.Header>

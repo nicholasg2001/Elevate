@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useAppSelector } from "../redux/store";
 import { NavLink } from "react-router-dom";
-import Navbar from "/src/components/Navbar";
+import Navbar from "./Navbar";
 import WorkoutModal from "./Modals/WorkoutModal";
 const PageFormatter = () => {
   const { user } = useAppSelector((state) => state.auth);
