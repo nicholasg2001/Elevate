@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useAppDispatch } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../redux/feats/auth/authActions";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+
 const SignupForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -37,8 +40,20 @@ const SignupForm = () => {
     }
     form.current.reset();
   };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: async ({ code }) => {
+      const tokens = await axios.post("http://localhost:3001/api/auth/google", {
+        code,
+      });
+
+      console.log(tokens);
+    },
+    flow: "auth-code",
+  });
+
   return (
-    <form onSubmit={formHandler}>
+    <div>
       <p className="text-white font-poppins text-l pb-2">Full Name</p>
       <input
         type="text"
@@ -123,12 +138,15 @@ const SignupForm = () => {
         </a>
       </div>
       <button
-        type="submit"
+        onClick={formHandler}
         className="text-lg font-poppins rounded-lg w-full bg-blue-600 text-white p-2 mt-4 hover:bg-blue-500"
       >
         Sign up!
       </button>
-      <button className="py-3.5 px-4 border rounded-lg border-gray-700 flex justify-center items-center w-full mt-4 hover:shadow-xl">
+      <button
+        className="py-3.5 px-4 border rounded-lg border-gray-700 flex justify-center items-center w-full mt-4 hover:shadow-xl"
+        onClick={googleLogin}
+      >
         <svg
           width="19"
           height="20"
@@ -157,7 +175,7 @@ const SignupForm = () => {
           Login with Google
         </p>
       </button>
-    </form>
+    </div>
   );
 };
 

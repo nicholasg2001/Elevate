@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const db = require("../database/database");
 const bcrypt = require("bcrypt");
+const { OAuth2Client } = require("google-auth-library");
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
@@ -78,8 +79,19 @@ const loginUser = async (req, res) => {
   res.status(200).json({ token: accessToken, user: user });
 };
 
+const googleSignIn = async (req, res) => {
+  const oAuth2Client = new OAuth2Client(
+    process.env.CLIENT_ID,
+    process.env.CLIENT_SECRET,
+    "postmessage"
+  );
+  const { tokens } = await oAuth2Client.getToken(req.body.code);
+  res.json(tokens);
+};
+
 module.exports = {
   authenticateToken,
   registerUser,
   loginUser,
+  googleSignIn,
 };
