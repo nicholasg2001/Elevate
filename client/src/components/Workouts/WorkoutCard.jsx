@@ -3,7 +3,7 @@ import { useAppDispatch } from "../../redux/store";
 const WorkoutCard = ({ name, img, muscle, difficulty, type }) => {
   const dispatch = useAppDispatch();
   return (
-    <div className="w-full lg:w-5/6 border border-gray-300 rounded-lg shadow-xl">
+    <div className="w-full border border-gray-300 rounded-lg shadow-xl">
       <div className="flex justify-center">
         <img className="rounded-t-lg h-44" src={img} alt="" />
       </div>
@@ -14,12 +14,12 @@ const WorkoutCard = ({ name, img, muscle, difficulty, type }) => {
         <p className="mb-3 font-normal text-gray-900">
           <span className=" text-black font-bold">Muscle:</span> {muscle}
         </p>
-        <div className="flex lg:gap-24 gap-32">
+        <div className="flex">
           <div className="flex flex-col font-normal text-gray-900 ">
             <span className=" text-black font-bold">Difficulty:</span>
             <span>{difficulty}</span>
           </div>
-          <div className="flex flex-col  mb-3 font-normal text-gray-900 ">
+          <div className="flex flex-col mb-3 ml-auto px-10 font-normal text-gray-900 ">
             <span className="text-black font-bold">Type:</span>
             <span>{type}</span>
           </div>
