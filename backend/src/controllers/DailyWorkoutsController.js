@@ -23,6 +23,7 @@ const getDailyWorkoutsbyDate = async (req, res) => {
         });
     }
 }
+
 module.exports = {
     getDailyWorkouts,
     getDailyWorkoutsbyDate
