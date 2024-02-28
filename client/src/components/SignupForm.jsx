@@ -3,7 +3,7 @@ import { useAppDispatch } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../redux/feats/auth/authActions";
 import { useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
+import { googleSignIn } from "../redux/feats/auth/authActions";
 
 const SignupForm = () => {
   const [name, setName] = useState("");
@@ -18,8 +18,7 @@ const SignupForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const formHandler = async (event) => {
-    event.preventDefault();
+  const manualSignUp = async () => {
     if (password !== confirmPassword) {
       setPasswordError(true);
       return;
@@ -38,16 +37,19 @@ const SignupForm = () => {
       let errorMessage = error.response.data.error;
       setEmailError(errorMessage);
     }
-    form.current.reset();
   };
 
   const googleLogin = useGoogleLogin({
     onSuccess: async ({ code }) => {
-      const tokens = await axios.post("http://localhost:3001/api/auth/google", {
-        code,
-      });
-
-      console.log(tokens);
+      try {
+        dispatch(googleSignIn(code));
+        navigate("/auth/main");
+      } catch (error) {
+        console.log("Error dispatching Google Sign-In action:", error);
+      }
+    },
+    onError: (error) => {
+      console.log(error);
     },
     flow: "auth-code",
   });
@@ -138,7 +140,7 @@ const SignupForm = () => {
         </a>
       </div>
       <button
-        onClick={formHandler}
+        onClick={manualSignUp}
         className="text-lg font-poppins rounded-lg w-full bg-blue-600 text-white p-2 mt-4 hover:bg-blue-500"
       >
         Sign up!
