@@ -1,18 +1,38 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   toast: {},
+  isWorkoutModalOpen: false,
+  isGoogleSetupModalOpen: false,
 };
 
 const globalSlice = createSlice({
-  name: 'global',
+  name: "global",
   initialState,
   reducers: {
     toast: (state, action) => {
       state.toast = action.payload;
     },
+    openWorkoutModal: (state) => {
+      state.isWorkoutModalOpen = true;
+    },
+    closeWorkoutModal: (state) => {
+      state.isWorkoutModalOpen = false;
+    },
+    openGoogleSetupModal: (state) => {
+      state.isGoogleSetupModalOpen = true;
+    },
+    closeGoogleSetupModal: (state) => {
+      state.isGoogleSetupModalOpen = false;
+    },
   },
 });
 
 export default globalSlice.reducer;
-export const { logout } = globalSlice.actions;
+export const {
+  toast,
+  openWorkoutModal,
+  closeWorkoutModal,
+  openGoogleSetupModal,
+  closeGoogleSetupModal,
+} = globalSlice.actions;
