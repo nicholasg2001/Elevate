@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   toast: {},
   isWorkoutModalOpen: false,
+  isGoogleSetupModalOpen: false,
 };
 
 const globalSlice = createSlice({
@@ -18,9 +19,20 @@ const globalSlice = createSlice({
     closeWorkoutModal: (state) => {
       state.isWorkoutModalOpen = false;
     },
+    openGoogleSetupModal: (state) => {
+      state.isGoogleSetupModalOpen = true;
+    },
+    closeGoogleSetupModal: (state) => {
+      state.isGoogleSetupModalOpen = false;
+    },
   },
 });
 
 export default globalSlice.reducer;
-export const { toast, openWorkoutModal, closeWorkoutModal } =
-  globalSlice.actions;
+export const {
+  toast,
+  openWorkoutModal,
+  closeWorkoutModal,
+  openGoogleSetupModal,
+  closeGoogleSetupModal,
+} = globalSlice.actions;
