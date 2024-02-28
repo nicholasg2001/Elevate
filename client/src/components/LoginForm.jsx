@@ -2,7 +2,9 @@ import { useState } from "react";
 import { loginUser } from "../redux/feats/auth/authActions";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../redux/store";
-useAppDispatch;
+import { useGoogleLogin } from "@react-oauth/google";
+import { googleSignIn } from "../redux/feats/auth/authActions";
+
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,11 +17,10 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const formHandler = async (event) => {
-    event.preventDefault();
+  const manualLogin = async () => {
     try {
       await dispatch(loginUser({ email, password })).unwrap();
-      navigate("/auth/main"); // TODO: change to proper main page component.
+      navigate("/auth/main");
     } catch (error) {
       if (error.response && error.response.status === 400) {
         let errorMessage = error.response.data.error;
@@ -37,8 +38,23 @@ const LoginForm = () => {
     }
   };
 
+  const googleLogin = useGoogleLogin({
+    onSuccess: async ({ code }) => {
+      try {
+        dispatch(googleSignIn(code));
+        navigate("/auth/main");
+      } catch (error) {
+        console.log("Error dispatching Google Sign-In action:", error);
+      }
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+    flow: "auth-code",
+  });
+
   return (
-    <form onSubmit={formHandler}>
+    <div>
       <input
         type="email"
         placeholder="Enter your email"
@@ -80,12 +96,15 @@ const LoginForm = () => {
         </a>
       </div>
       <button
-        type="submit"
+        onClick={manualLogin}
         className="text-lg font-poppins rounded-lg w-full bg-blue-600 text-white p-2 mt-4 hover:bg-blue-500"
       >
         Login
       </button>
-      <button className="py-3.5 px-4 border rounded-lg border-gray-700 flex justify-center items-center w-full mt-4 hover:shadow-xl">
+      <button
+        onClick={googleLogin}
+        className="py-3.5 px-4 border rounded-lg border-gray-700 flex justify-center items-center w-full mt-4 hover:shadow-xl"
+      >
         <svg
           width="19"
           height="20"
@@ -114,7 +133,7 @@ const LoginForm = () => {
           Login with Google
         </p>
       </button>
-    </form>
+    </div>
   );
 };
 

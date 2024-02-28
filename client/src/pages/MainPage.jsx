@@ -1,4 +1,5 @@
 import { useAppSelector } from "../redux/store";
+
 const MainPage = () => {
   const { user } = useAppSelector((state) => state.auth);
   return (
