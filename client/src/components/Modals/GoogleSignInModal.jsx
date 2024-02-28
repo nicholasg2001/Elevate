@@ -16,9 +16,10 @@ const GoogleSignInModal = () => {
       await updateUser({
         name: user.name,
         email: user.email,
-        height: height,
-        weight: weight,
+        height: height.current.value,
+        weight: weight.current.value,
       });
+      dispatch(closeGoogleSetupModal());
     } catch (error) {
       console.error("Error updating user:", error);
     }
