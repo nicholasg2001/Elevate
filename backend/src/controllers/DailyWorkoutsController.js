@@ -79,7 +79,7 @@ const updateDailyWorkout = async (req, res) => {
   }
 };
 
-
+//delete entry
 const deleteDailyWorkout = async (req, res) => {
   const { dailyworkout_id } = req.body;
 
