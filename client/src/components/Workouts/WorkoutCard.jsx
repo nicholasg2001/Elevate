@@ -3,11 +3,11 @@ import { useAppDispatch } from "../../redux/store";
 const WorkoutCard = ({ name, img, muscle, difficulty, type }) => {
   const dispatch = useAppDispatch();
   return (
-    <div className="w-full border border-gray-300 rounded-lg shadow-xl">
-      <div className="flex justify-center">
+    <div className="w-full bg-slate-300 border border-gray-300 rounded-lg shadow-xl">
+      <div className="flex justify-center bg-white">
         <img className="rounded-t-lg h-44" src={img} alt="" />
       </div>
-      <div className="p-5 bg-slate-300 rounded-b-lg">
+      <div className="p-5 rounded-b-lg">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
           {name}
         </h5>

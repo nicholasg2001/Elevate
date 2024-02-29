@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Modal } from "flowbite-react";
 import { useAppSelector, useAppDispatch } from "../../redux/store";
 import { closeWorkoutModal } from "../../redux/feats/global/globalSlice";
+
 const WorkoutModal = () => {
   const dispatch = useAppDispatch();
   const isModalOpen = useAppSelector(
@@ -10,12 +11,14 @@ const WorkoutModal = () => {
   const [sets, setSets] = useState(0);
   const [reps, setReps] = useState(0);
 
-  const onWorkoutAdded = () => {
-    // TODO: waiting on POST endpoints
-    // await addWorkout({workoutId}); try catch();
-    console.log("Sets", sets);
-    console.log("Reps", reps);
-    dispatch(closeWorkoutModal());
+  // WIP WIP SET UP dailyWorkouts POST
+  const onWorkoutAdded = async () => {
+    try {
+      await useAddDailyWorkoutMutation({ sets: sets, reps: reps });
+      dispatch(closeWorkoutModal());
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <Modal

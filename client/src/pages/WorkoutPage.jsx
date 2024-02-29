@@ -4,17 +4,18 @@ import WorkoutCard from "../components/Workouts/WorkoutCard";
 import Legs from "/src/assets/workouts/legs.png";
 import WorkoutSearchBar from "../components/Workouts/WorkoutSearchBar";
 import WorkoutModal from "../components/Modals/WorkoutModal";
+import WorkoutsFilter from "../components/Workouts/WorkoutsFilter";
 
 const WorkoutPage = () => {
   const { data, isLoading } = useGetTopWorkoutsQuery("Workouts");
 
   return (
     <>
-      <WorkoutModal />
-      <div className="flex gap-5 justify-center">
+      <div className="flex justify-center">
         <WorkoutSearchBar />
+        <WorkoutsFilter />
       </div>
-      <div className="container mx-auto p-4 lg:p-10">
+      <div className="container mx-auto p-4 lg:p-10 relative">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
           {!isLoading ? (
             data.map((workout) => (
@@ -34,6 +35,7 @@ const WorkoutPage = () => {
           )}
         </div>
       </div>
+      <WorkoutModal />
     </>
   );
 };
