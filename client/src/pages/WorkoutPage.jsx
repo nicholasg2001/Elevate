@@ -1,13 +1,13 @@
+import { Spinner } from "flowbite-react";
+import { useGetTopWorkoutsQuery } from "../redux/services/WorkoutService";
 import WorkoutCard from "../components/Workouts/WorkoutCard";
 import Legs from "/src/assets/workouts/legs.png";
-import Abs from "/src/assets/workouts/abs.png";
-import Cardio from "/src/assets/workouts/cardio.png";
-import Arms from "/src/assets/workouts/arms.png";
 import WorkoutSearchBar from "../components/Workouts/WorkoutSearchBar";
 import WorkoutModal from "../components/Modals/WorkoutModal";
-import { useGetTopWorkoutsQuery } from "../redux/services/WorkoutService";
+
 const WorkoutPage = () => {
   const { data, isLoading } = useGetTopWorkoutsQuery("Workouts");
+
   return (
     <>
       <WorkoutModal />
@@ -28,7 +28,9 @@ const WorkoutPage = () => {
               />
             ))
           ) : (
-            <div>Loading...</div>
+            <div className="flex justify-center w-screen">
+              <Spinner aria-label="Profile loading spinner" size="xl" />
+            </div>
           )}
         </div>
       </div>
