@@ -1,10 +1,8 @@
 const db = require("../database/database");
 
-const getTopWorkouts = async (req, res) => {
+const getAllWorkouts = async (req, res) => {
   try {
-    const workouts = await db.any(
-      "SELECT * FROM workouts ORDER BY workout_id LIMIT 6"
-    );
+    const workouts = await db.any("SELECT * FROM workouts;");
     res.status(200).json(workouts);
   } catch (error) {
     console.error("Workouts Error:", error);
@@ -118,7 +116,7 @@ const getWorkoutsByDifficulty = async (req, res) => {
 };
 
 module.exports = {
-  getTopWorkouts,
+  getAllWorkouts,
   getWorkoutsByMuscle,
   getWorkoutByName,
   getWorkoutsByType,

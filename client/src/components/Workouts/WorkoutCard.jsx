@@ -1,6 +1,6 @@
 import { openWorkoutModal } from "../../redux/feats/global/globalSlice";
 import { useAppDispatch } from "../../redux/store";
-const WorkoutCard = ({ name, img, muscle, difficulty, type }) => {
+const WorkoutCard = ({ workout, img }) => {
   const dispatch = useAppDispatch();
   return (
     <div className="w-full bg-slate-300 border border-gray-300 rounded-lg shadow-xl">
@@ -9,19 +9,20 @@ const WorkoutCard = ({ name, img, muscle, difficulty, type }) => {
       </div>
       <div className="p-5 rounded-b-lg">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-          {name}
+          {workout.name}
         </h5>
         <p className="mb-3 font-normal text-gray-900">
-          <span className=" text-black font-bold">Muscle:</span> {muscle}
+          <span className=" text-black font-bold">Muscle:</span>{" "}
+          {workout.muscle}
         </p>
         <div className="flex">
           <div className="flex flex-col font-normal text-gray-900 ">
             <span className=" text-black font-bold">Difficulty:</span>
-            <span>{difficulty}</span>
+            <span>{workout.difficulty}</span>
           </div>
           <div className="flex flex-col mb-3 ml-auto px-10 font-normal text-gray-900 ">
             <span className="text-black font-bold">Type:</span>
-            <span>{type}</span>
+            <span>{workout.type}</span>
           </div>
         </div>
         <div className="flex justify-between">

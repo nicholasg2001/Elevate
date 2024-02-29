@@ -20,7 +20,7 @@ export const workoutAPI = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getTopWorkouts: builder.query({
+    getAllWorkouts: builder.query({
       query: () => ({
         url: "/",
         method: "GET",
@@ -58,4 +58,4 @@ export const workoutAPI = createApi({
   }),
 });
 
-export const { useGetTopWorkoutsQuery } = workoutAPI;
+export const { useGetAllWorkoutsQuery } = workoutAPI;

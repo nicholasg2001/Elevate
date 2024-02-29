@@ -6,7 +6,7 @@ const router = express.Router();
 router.get(
   "/",
   AuthController.authenticateToken,
-  WorkoutsController.getTopWorkouts
+  WorkoutsController.getAllWorkouts
 );
 router.get(
   "/:name",

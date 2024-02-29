@@ -1,40 +1,38 @@
-import { Spinner } from "flowbite-react";
-import { useGetTopWorkoutsQuery } from "../redux/services/WorkoutService";
-import WorkoutCard from "../components/Workouts/WorkoutCard";
-import Legs from "/src/assets/workouts/legs.png";
-import WorkoutSearchBar from "../components/Workouts/WorkoutSearchBar";
+import { useState } from "react";
+import { CiSearch } from "react-icons/ci";
+import WorkoutsContainer from "../components/Workouts/WorkoutsContainer";
 import WorkoutModal from "../components/Modals/WorkoutModal";
 import WorkoutsFilter from "../components/Workouts/WorkoutsFilter";
 
 const WorkoutPage = () => {
-  const { data, isLoading } = useGetTopWorkoutsQuery("Workouts");
-
+  const [workoutSearch, setWorkoutSearch] = useState("");
   return (
     <>
       <div className="flex justify-center">
-        <WorkoutSearchBar />
+        <div className="w-full lg:w-1/2 mx-4 lg:mx-auto mt-4">
+          <label
+            htmlFor="default-search"
+            className="mb-2 text-sm font-medium text-gray-900 sr-only"
+          >
+            Search
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <CiSearch size={20} />
+            </div>
+            <input
+              type="search"
+              id="default-search"
+              className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 :bg-gray-700"
+              placeholder="Search Workouts"
+              onChange={(e) => setWorkoutSearch(e.target.value)}
+              required
+            />
+          </div>
+        </div>
         <WorkoutsFilter />
       </div>
-      <div className="container mx-auto p-4 lg:p-10 relative">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {!isLoading ? (
-            data.map((workout) => (
-              <WorkoutCard
-                key={workout.id}
-                name={workout.name}
-                img={Legs}
-                muscle={workout.muscle}
-                difficulty={workout.difficulty}
-                type={workout.type}
-              />
-            ))
-          ) : (
-            <div className="flex justify-center w-screen">
-              <Spinner aria-label="Profile loading spinner" size="xl" />
-            </div>
-          )}
-        </div>
-      </div>
+      <WorkoutsContainer search={workoutSearch} />
       <WorkoutModal />
     </>
   );
