@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const db = require("../database/database");
 const bcrypt = require("bcrypt");
+const { OAuth2Client } = require("google-auth-library");
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
@@ -18,9 +19,9 @@ const authenticateToken = (req, res, next) => {
 };
 
 const registerUser = async (req, res) => {
-  const { email, password, height, weight } = req.body;
+  const { name, email, password, height, weight } = req.body;
 
-  if (!email || !password || !height || !weight) {
+  if (!name || !email || !password || !height || !weight) {
     return res.status(400).json({ error: "Missing Fields." });
   }
   try {
@@ -37,8 +38,8 @@ const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = await db.one(
-      "INSERT INTO users(email, password, height, weight) VALUES($1, $2, $3, $4) RETURNING *",
-      [email, hashedPassword, height, weight]
+      "INSERT INTO users(name, email, password, height, weight, google_account) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
+      [name, email, hashedPassword, height, weight, false]
     );
 
     const accessToken = jwt.sign(
@@ -78,8 +79,46 @@ const loginUser = async (req, res) => {
   res.status(200).json({ token: accessToken, user: user });
 };
 
+const googleSignIn = async (req, res) => {
+  try {
+    const oAuth2Client = new OAuth2Client(
+      process.env.CLIENT_ID,
+      process.env.CLIENT_SECRET,
+      "postmessage"
+    );
+    const { tokens } = await oAuth2Client.getToken(req.body.code);
+    const decodedToken = jwt.decode(tokens.id_token);
+    const { email, name } = decodedToken;
+    const existingUser = await db.oneOrNone(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    );
+    if (existingUser) {
+      const accessToken = jwt.sign(
+        { data: existingUser },
+        process.env.ACCESS_TOKEN_SECRET
+      );
+      return res.status(200).json({ token: accessToken, user: existingUser });
+    } else {
+      const newUser = await db.one(
+        "INSERT INTO users(name, email, google_account) VALUES($1, $2, $3) RETURNING *",
+        [name, email, true]
+      );
+      const accessToken = jwt.sign(
+        { data: newUser },
+        `${process.env.ACCESS_TOKEN_SECRET}`
+      );
+      res.status(201).json({ token: accessToken, user: newUser });
+    }
+  } catch (error) {
+    console.error("Google Sign-In error:", error);
+    return res.status(500).json({ error: "Unable to process Google Sign-In." });
+  }
+};
+
 module.exports = {
   authenticateToken,
   registerUser,
   loginUser,
+  googleSignIn,
 };
