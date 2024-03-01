@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import { useAppDispatch } from "../../redux/store";
+import { toast } from "../../redux/feats/global/globalSlice";
 import { useChangePasswordMutation } from "../../redux/services/UserService";
 const PasswordTab = () => {
   const currentPasswordRef = useRef(document.createElement("input"));
@@ -8,8 +10,9 @@ const PasswordTab = () => {
   const [isCurrentPasswordError, setIsCurrentPasswordError] = useState(false);
   const [isNewPasswordError, setIsNewPasswordError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
   const [changePassword] = useChangePasswordMutation();
+
+  const dispatch = useAppDispatch();
 
   const passwordHandler = async () => {
     try {
@@ -19,7 +22,9 @@ const PasswordTab = () => {
         confirmNewPassword: newConfirmedPasswordRef.current.value,
       }).unwrap();
       resetForm();
+      dispatch(toast({state: true, message: "Password updated successfully."}))
     } catch (error) {
+      dispatch(toast({state: true, message:"Password updated failed."}))
       let errorMessage = error.data.error;
       if (errorMessage.includes("Incorrect")) {
         setIsCurrentPasswordError(true);
