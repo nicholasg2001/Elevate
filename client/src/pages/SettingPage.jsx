@@ -21,7 +21,7 @@ const SettingPage = () => {
         {currentTab === "Password" && <PasswordTab user={user} />}
         {currentTab === "Goals" && <GoalsTab user={user} />}
       </div>
-      <CustomToasts />
+      <CustomToasts className="mx-auto"/>
     </div>
   );
 };
