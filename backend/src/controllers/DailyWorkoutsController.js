@@ -29,11 +29,25 @@ const getDailyWorkoutsbyDate = async (req, res) => {
 }
 
 
-  const insertWorkout = async (req, res) => {
+const insertWorkout = async (req, res) => {
     const userId = req.user.data.user_id;
-    const { dailyworkout_id, workout_id, sets, reps } = req.body;
+    const { workout_id, sets, reps } = req.body;
     const currentDate = new Date(); // Get the current date 
-    console.log("hit");
+    try {
+        const insertedWorkout = await db.one(
+            "INSERT INTO dailyworkouts(user_id, workout_id, sets, reps, date) VALUES($1, $2, $3, $4, $5 ) RETURNING *",
+            [userId, workout_id, sets, reps, currentDate]
+        );
+        res.status(200).send(insertedWorkout);
+    } catch (error) {
+        res.status(500).json({ error : "Error inserting workout into the database: " + error.message });
+    }
+};
+
+
+
+const updateDailyWorkout = async (req, res) => {
+    const { dailyworkout_id, sets, reps } = req.body; // Removed user_id and workout_id
     try {
         const workoutExists = await db.oneOrNone(
             "SELECT * FROM dailyworkouts WHERE dailyworkout_id = $1",
@@ -41,67 +55,43 @@ const getDailyWorkoutsbyDate = async (req, res) => {
         );
 
         if (!workoutExists) {
-            const insertedWorkout = await db.one(
-                "INSERT INTO dailyworkouts(dailyworkout_id, user_id, workout_id, sets, reps, date) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
-                [dailyworkout_id, userId, workout_id, sets, reps, currentDate]
-            );
-            return res.status(200).json({ success: true, workout: insertedWorkout, message: "Workout inserted successfully" });
-        } else {
-            return res.status(400).json({ success: false, message: "Workout already exists" });
+            return res.status(404).json({ error : "Daily workout not found" });
         }
+
+        const updatedWorkout = await db.one(
+            "UPDATE dailyworkouts SET sets = $1, reps = $2 WHERE dailyworkout_id = $3 RETURNING *",
+            [sets, reps, dailyworkout_id]
+        );
+
+        res.status(200).send(updatedWorkout);
     } catch (error) {
-        return res.status(500).json({ success: false, message: "Error inserting workout into the database: " + error.message });
+        res.status(500).json({ error : "Error updating daily workout: " + error.message });
     }
-};
-
-
-const updateDailyWorkout = async (req, res) => {
-  const { dailyworkout_id, user_id, workout_id, sets, reps } = req.body;
-  const currentDate = new Date();
-  try {
-      const workoutExists = await db.oneOrNone(
-          "SELECT * FROM dailyworkouts WHERE dailyworkout_id = $1",
-          [dailyworkout_id]
-      );
-
-      if (!workoutExists) {
-          return res.status(404).json({ success: false, message: "Daily workout not found" });
-      }
-
-      const updatedWorkout = await db.one(
-          "UPDATE dailyworkouts SET user_id = $1, workout_id = $2, sets = $3, reps = $4 WHERE dailyworkout_id = $5 RETURNING *",
-          [user_id, workout_id, sets, reps, dailyworkout_id]
-      );
-
-      return res.status(200).json({ success: true, workout: updatedWorkout, message: "Daily workout updated successfully" });
-  } catch (error) {
-      return res.status(500).json({ success: false, message: "Error updating daily workout: " + error.message });
-  }
 };
 
 //delete entry
 const deleteDailyWorkout = async (req, res) => {
-  const { dailyworkout_id } = req.body;
+    const { dailyworkout_id } = req.body;
 
-  try {
-      const workoutExists = await db.oneOrNone(
-          "SELECT * FROM dailyworkouts WHERE dailyworkout_id = $1",
-          [dailyworkout_id]
-      );
+    try {
+        const workoutExists = await db.oneOrNone(
+            "SELECT * FROM dailyworkouts WHERE dailyworkout_id = $1",
+            [dailyworkout_id]
+        );
 
-      if (!workoutExists) {
-          return res.status(404).json({ success: false, message: "Daily workout not found" });
-      }
+        if (!workoutExists) {
+            res.status(404).json({ error : "Daily workout not found" });
+        }
 
-      await db.none(
-          "DELETE FROM dailyworkouts WHERE dailyworkout_id = $1",
-          [dailyworkout_id]
-      );
+        await db.none(
+            "DELETE FROM dailyworkouts WHERE dailyworkout_id = $1",
+            [dailyworkout_id]
+        );
 
-      return res.status(200).json({ success: true, message: "Daily workout deleted successfully" });
-  } catch (error) {
-      return res.status(500).json({ success: false, message: "Error deleting daily workout: " + error.message });
-  }
+        res.status(200).send(workoutExists);
+    } catch (error) {
+        res.status(500).json({ error : "Error deleting daily workout: " + error.message });
+    }
 };
 
 
