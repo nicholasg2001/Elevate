@@ -6,7 +6,10 @@ const router = express.Router();
 
 
 router.get("/", AuthController.authenticateToken, DailyWorkoutsController.getDailyWorkouts);
-router.get("/:date", DailyWorkoutsController.getDailyWorkoutsbyDate);
+router.get("/:date", AuthController.authenticateToken,DailyWorkoutsController.getDailyWorkoutsbyDate);
+router.post("/", AuthController.authenticateToken,DailyWorkoutsController.insertWorkout);
+router.patch("/",AuthController.authenticateToken,DailyWorkoutsController.updateDailyWorkout);
+router.delete("/",AuthController.authenticateToken,DailyWorkoutsController.deleteDailyWorkout);
 
 
 module.exports = router;
