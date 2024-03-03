@@ -1,11 +1,15 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useUpdateUserMutation } from "../../redux/services/UserService";
+import { useAppDispatch } from "../../redux/store";
+import { toast } from "../../redux/feats/global/globalSlice";
 const UserInfoTab = ({ user }) => {
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [height, setHeight] = useState(user.height);
   const [weight, setWeight] = useState(user.weight);
-  const [updateUser, { isLoading }] = useUpdateUserMutation();
+  const [updateUser] = useUpdateUserMutation();
+  const dispatch = useAppDispatch();
 
   const formHandler = async (event) => {
     event.preventDefault();
@@ -16,8 +20,10 @@ const UserInfoTab = ({ user }) => {
         height: height,
         weight: weight,
       });
+      dispatch(toast({state: true, message: "Settings updated successfully."}))
     } catch (error) {
       console.error("Error updating user:", error);
+      dispatch(toast({state: "Settings updated failed."}))
     }
   };
   return (

@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  toast: {},
+  toast: {
+    state: false,
+    message: "",
+  },
   isWorkoutModalOpen: false,
   isGoogleSetupModalOpen: false,
 };
@@ -11,7 +14,8 @@ const globalSlice = createSlice({
   initialState,
   reducers: {
     toast: (state, action) => {
-      state.toast = action.payload;
+      state.toast.state = action.payload.state;
+      state.toast.message = action.payload.message;
     },
     openWorkoutModal: (state) => {
       state.isWorkoutModalOpen = true;
