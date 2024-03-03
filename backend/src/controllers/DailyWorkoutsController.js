@@ -32,7 +32,7 @@ const getDailyWorkoutsbyDate = async (req, res) => {
 const insertWorkout = async (req, res) => {
     const userId = req.user.data.user_id;
     const { workout_id, sets, reps } = req.body;
-    const currentDate = new Date(); // Get the current date 
+    const currentDate = new Date();
     try {
         const insertedWorkout = await db.one(
             "INSERT INTO dailyworkouts(user_id, workout_id, sets, reps, date) VALUES($1, $2, $3, $4, $5 ) RETURNING *",

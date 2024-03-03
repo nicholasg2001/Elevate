@@ -22,7 +22,7 @@ const CustomToasts = () => {
   return (
     <>
       {state && (message.includes("successfully") ? (
-        <div className="absolute bottom-0 left-0 mb-4 ml-4"> {/* Updated styles */}
+        <div className="fixed bottom-4 left-4 z-50">
           <Toast>
             <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-200 text-green-500">
               <HiCheck className="h-5 w-5" />
@@ -35,7 +35,7 @@ const CustomToasts = () => {
           </Toast>
         </div>
       ) : (
-        <div className="absolute bottom-0 left-0 mb-4 ml-4"> {/* Updated styles */}
+        <div className="fixed bottom-4 left-4 z-50">
           <Toast>
             <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-200 text-red-500">
               <HiX className="h-5 w-5" />

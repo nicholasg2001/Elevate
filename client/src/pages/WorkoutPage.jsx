@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import WorkoutsContainer from "../components/Workouts/WorkoutsContainer";
-import WorkoutModal from "../components/Modals/WorkoutModal";
 import WorkoutsFilter from "../components/Workouts/WorkoutsFilter";
+import CustomToasts from "../components/Toasts/CustomToasts";
 
 const WorkoutPage = () => {
   const [workoutSearch, setWorkoutSearch] = useState("");
@@ -33,7 +33,7 @@ const WorkoutPage = () => {
         <WorkoutsFilter />
       </div>
       <WorkoutsContainer search={workoutSearch} />
-      <WorkoutModal />
+      <CustomToasts/>
     </>
   );
 };

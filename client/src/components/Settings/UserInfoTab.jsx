@@ -27,7 +27,7 @@ const UserInfoTab = () => {
       dispatch(updateUserDetails(result.updatedUser));
     } catch (error) {
       console.error("Error updating user:", error);
-      dispatch(toast({ state: false, message: "Settings updated failed." }))
+      dispatch(toast({ state: true, message: "Settings updated failed." }))
     }
   };
   return (
