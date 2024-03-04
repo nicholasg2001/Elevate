@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Spinner } from "flowbite-react";
 import { useGetAllWorkoutsQuery } from "../../redux/services/WorkoutService";
 import WorkoutCard from "./WorkoutCard";
+import AddDailyWorkoutModal from "../Modals/AddDailyWorkoutModal";
 import Legs from "/src/assets/workouts/legs.png";
 const WorkoutsContainer = ({ search }) => {
   const { data, isLoading } = useGetAllWorkoutsQuery("Workouts");
+  const [workoutID, setWorkoutID] = useState(0);
   const [paginate, setPaginate] = useState(6);
 
   const filterWorkouts = (workouts) => {
@@ -29,12 +31,14 @@ const WorkoutsContainer = ({ search }) => {
           data &&
           filterWorkouts(data).map((workout) => (
             <WorkoutCard
+              onClick={() => setWorkoutID(workout.workout_id)}
               workout={workout}
               img={Legs}
               key={workout.workout_id}
             />
           ))}
       </div>
+      <AddDailyWorkoutModal workout_id={workoutID} />
     </div>
   );
 };

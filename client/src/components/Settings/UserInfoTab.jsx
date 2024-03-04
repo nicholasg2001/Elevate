@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useUpdateUserMutation } from "../../redux/services/UserService";
-import { useAppDispatch } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { toast } from "../../redux/feats/global/globalSlice";
-const UserInfoTab = ({ user }) => {
+import { updateUserDetails } from "../../redux/feats/auth/authSlice";
+
+const UserInfoTab = () => {
+  const { user } = useAppSelector((state) => state.auth);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [height, setHeight] = useState(user.height);
@@ -14,16 +17,17 @@ const UserInfoTab = ({ user }) => {
   const formHandler = async (event) => {
     event.preventDefault();
     try {
-      await updateUser({
+      const result = await updateUser({
         name: name,
         email: email,
         height: height,
         weight: weight,
-      });
-      dispatch(toast({state: true, message: "Settings updated successfully."}))
+      }).unwrap();
+      dispatch(toast({ state: true, message: "Settings updated successfully." }))
+      dispatch(updateUserDetails(result.updatedUser));
     } catch (error) {
       console.error("Error updating user:", error);
-      dispatch(toast({state: "Settings updated failed."}))
+      dispatch(toast({ state: true, message: "Settings updated failed." }))
     }
   };
   return (

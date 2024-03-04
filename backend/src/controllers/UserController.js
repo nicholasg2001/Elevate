@@ -34,7 +34,15 @@ const updateUser = async (req, res) => {
       [userId, req.body.name, req.body.email, req.body.height, req.body.weight]
     );
 
-    res.status(200).json({ message: "User updated successfully." });
+    const updatedUser = await db.oneOrNone(
+      "SELECT * FROM users WHERE user_id = $1",
+      [userId]
+    );
+
+    res.status(200).json({
+      message: "User updated successfully.",
+      updatedUser: updatedUser,
+    });
   } catch (error) {
     console.error("Error updating user:", error);
     res.status(500).json({ error: "Failed to update user." });

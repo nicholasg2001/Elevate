@@ -19,6 +19,7 @@ export const userAPI = createApi({
       }
     },
   }),
+  tagTypes: ['User'],
   endpoints: (builder) => ({
     updateUser: builder.mutation({
       query: ({ name, email, height, weight }) => ({
@@ -26,7 +27,7 @@ export const userAPI = createApi({
         method: "PATCH",
         body: { name, email, height, weight },
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags: ['User'],
     }),
     changePassword: builder.mutation({
       query: ({ currentPassword, newPassword, confirmNewPassword }) => ({
