@@ -2,8 +2,15 @@ import { openWorkoutModal } from "../../redux/feats/global/globalSlice";
 import { useAppDispatch } from "../../redux/store";
 const WorkoutCard = ({ workout, img, onClick }) => {
   const dispatch = useAppDispatch();
+  const difficultyColorHash = {
+    beginner: 'text-green-700',
+    intermediate: 'text-yellow-200',
+    expert: 'text-red-500'
+  }
+  const difficultyColor = difficultyColorHash[workout.difficulty] || '';
+
   return (
-    <div className="w-full bg-slate-300 border border-gray-300 rounded-lg shadow-xl" onClick={onClick}>
+    <div className="w-full bg-slate-400 border border-gray-300 rounded-lg shadow-xl" onClick={onClick}>
       <div className="flex justify-center bg-white">
         <img className="rounded-t-lg h-44" src={img} alt="" />
       </div>
@@ -12,17 +19,17 @@ const WorkoutCard = ({ workout, img, onClick }) => {
           {workout.name}
         </h5>
         <p className="mb-3 font-normal text-gray-900">
-          <span className=" text-black font-bold">Muscle:</span>{" "}
-          {workout.muscle}
+          <span className="text-black font-bold">Muscle:</span>{" "}
+          <span className="font-semibold">{workout.muscle}</span>
         </p>
         <div className="flex">
-          <div className="flex flex-col font-normal text-gray-900 ">
-            <span className=" text-black font-bold">Difficulty:</span>
-            <span>{workout.difficulty}</span>
+          <div className="flex flex-col">
+            <span className="font-bold">Difficulty:</span>
+            <span className={`font-semibold ${difficultyColor}`}>{workout.difficulty}</span>
           </div>
           <div className="flex flex-col mb-3 ml-auto px-10 font-normal text-gray-900 ">
             <span className="text-black font-bold">Type:</span>
-            <span>{workout.type}</span>
+            <span className="font-semibold">{workout.type}</span>
           </div>
         </div>
         <div className="flex justify-between">
@@ -52,7 +59,7 @@ const WorkoutCard = ({ workout, img, onClick }) => {
           </button>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
