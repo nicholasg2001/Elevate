@@ -3,6 +3,8 @@ import { Modal } from "flowbite-react";
 import { useAppSelector, useAppDispatch } from "../../redux/store";
 import { closeGoogleSetupModal } from "../../redux/feats/global/globalSlice";
 import { useUpdateUserMutation } from "../../redux/services/UserService";
+import { toast } from "../../redux/feats/global/globalSlice";
+import { updateUserDetails } from "../../redux/feats/auth/authSlice";
 const GoogleSignInModal = () => {
   const dispatch = useAppDispatch();
   const { isGoogleSetupModalOpen } = useAppSelector((state) => state.global);
@@ -13,13 +15,15 @@ const GoogleSignInModal = () => {
 
   const onInitialSetup = async () => {
     try {
-      await updateUser({
+      const result = await updateUser({
         name: user.name,
         email: user.email,
         height: height.current.value,
         weight: weight.current.value,
       });
       dispatch(closeGoogleSetupModal());
+      dispatch(toast({ state: true, message: "New account setup!" }));
+      dispatch(updateUserDetails(result.updatedUser));
     } catch (error) {
       console.error("Error updating user:", error);
     }

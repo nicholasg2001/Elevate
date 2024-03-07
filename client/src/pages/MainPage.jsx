@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import GoogleSignInModal from "../components/Modals/GoogleSignInModal";
+import { openGoogleSetupModal } from "../redux/feats/global/globalSlice";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import WeeklyCaloriesChart from "../components/Main/Charts/WeeklyCaloriesChart";
 import WeeklyWorkoutsChart from "../components/Main/Charts/WeeklyWorkoutsChart";
+import CustomToasts from "../components/Toasts/CustomToasts";
 const MainPage = () => {
   const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
@@ -27,6 +29,7 @@ const MainPage = () => {
         </div>
       </div>
       <GoogleSignInModal />
+      <CustomToasts />
     </>
   );
 };
