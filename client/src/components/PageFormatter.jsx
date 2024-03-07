@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useAppSelector } from "../redux/store";
 import { NavLink } from "react-router-dom";
-import Navbar from "./Navbar";
+import AuthNavBar from "./AuthNavBar";
 const PageFormatter = () => {
   const { user } = useAppSelector((state) => state.auth);
   if (user == null) {
@@ -16,7 +16,7 @@ const PageFormatter = () => {
   }
   return (
     <>
-      <Navbar />
+      <AuthNavBar />
       <Outlet />
     </>
   );
