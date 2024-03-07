@@ -10,7 +10,7 @@ const WorkoutCard = ({ workout, img, onClick }) => {
   const difficultyColor = difficultyColorHash[workout.difficulty] || '';
 
   return (
-    <div className="w-full bg-slate-400 border border-gray-300 rounded-lg shadow-xl" onClick={onClick}>
+    <div className="w-full bg-blue-300 border border-gray-300 rounded-lg shadow-xl" onClick={onClick}>
       <div className="flex justify-center bg-white">
         <img className="rounded-t-lg h-44" src={img} alt="" />
       </div>

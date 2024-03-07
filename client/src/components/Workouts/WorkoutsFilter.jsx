@@ -8,7 +8,7 @@ const WorkoutsFilter = () => {
   const [isMuscle, setIsMuscle] = useState(false);
   
   return (
-    <div className="absolute right-0 flex flex-col gap-3 items-center justify-center p-4">
+    <div className="absolute right-0 top-16 md:top-0 md:relative flex flex-col gap-3 items-center justify-center p-4">
       <button
         className="bg-blue-400 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
         onClick={() => setOpenDropDown((prevOpenDropDown) => !prevOpenDropDown)}
