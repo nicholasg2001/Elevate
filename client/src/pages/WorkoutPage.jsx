@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import WorkoutsContainer from "../components/Workouts/WorkoutsContainer";
-import WorkoutsFilter from "../components/Workouts/WorkoutsFilter";
+import WorkoutsFilter from "../components/Workouts/filter/WorkoutsFilter";
 import CustomToasts from "../components/Toasts/CustomToasts";
 
 const WorkoutPage = () => {
