@@ -31,11 +31,20 @@ const WorkoutsContainer = ({ search }) => {
       fetchNextPage();
     }
   }, [fetchNextPage, inView, hasNextPage]);
+  
+  const filterWorkouts = (workouts) => {
+    return workouts.filter((workout) =>
+      workout.name
+        .toLowerCase()
+        .replace(/[^a-zA-Z]+/g, "")
+        .includes(search.toLowerCase().replace(/[^a-zA-Z]+/g, ""))
+    );
+  };
 
   return (
     <div className="container mx-auto p-4 lg:p-10 relative">
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-        {data?.pages.map((page) => (
+        {data?.pages.map((page) =>
           page.data.map((workout) => (
             <WorkoutCard
               key={workout.workout_id}
@@ -44,7 +53,7 @@ const WorkoutsContainer = ({ search }) => {
               img={Legs}
             />
           ))
-        ))}
+        )}
       </div>
       <div ref={ref}>
         {isFetchingNextPage && (
