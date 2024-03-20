@@ -1,10 +1,12 @@
 import { useState, useRef } from "react";
-import { AiTwotoneEdit } from 'react-icons/ai';
+import { AiTwotoneEdit } from "react-icons/ai";
+import { useChangeProfilePictureMutation } from "../../redux/services/UserService";
 const ProfilePic = ({ picture }) => {
   const [imageURL, setImageURL] = useState(picture);
   const [isHovering, setIsHovering] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef(null);
+  const [changeProfilePicture] = useChangeProfilePictureMutation();
 
   const handleProfilePicClick = () => {
     if (fileInputRef.current) {
