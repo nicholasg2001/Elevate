@@ -47,7 +47,7 @@ const PasswordTab = () => {
 
   return (
     <div className="p-6 bg-gray-50 text-medium text-gray-500 rounded-lg w-1/2">
-      <h3 className="text-lg font-bold text-gray-900 mb-2">User Info</h3>
+      <h3 className="text-xl font-bold text-center text-gray-900 mb-2">Change Password</h3>
       <div>
         <label className="font-poppins text-md pb-2">Current Password</label>
         <input
