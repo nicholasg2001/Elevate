@@ -19,7 +19,7 @@ export const userAPI = createApi({
       }
     },
   }),
-  tagTypes: ['User'],
+  tagTypes: ["User"],
   endpoints: (builder) => ({
     updateUser: builder.mutation({
       query: ({ name, email, height, weight }) => ({
@@ -27,7 +27,7 @@ export const userAPI = createApi({
         method: "PATCH",
         body: { name, email, height, weight },
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: ["User"],
     }),
     changePassword: builder.mutation({
       query: ({ currentPassword, newPassword, confirmNewPassword }) => ({
@@ -36,7 +36,24 @@ export const userAPI = createApi({
         body: { currentPassword, newPassword, confirmNewPassword },
       }),
     }),
+    changeProfilePicture: builder.mutation({
+      query: ({ file }) => {
+        const formData = new FormData();
+        formData.append("photoURL", file);
+
+        return {
+          url: "/image",
+          method: "PATCH",
+          body: formData,
+        };
+      },
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
-export const { useUpdateUserMutation, useChangePasswordMutation } = userAPI;
+export const {
+  useUpdateUserMutation,
+  useChangePasswordMutation,
+  useChangeProfilePictureMutation,
+} = userAPI;
