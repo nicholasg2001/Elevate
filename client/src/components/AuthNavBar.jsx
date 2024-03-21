@@ -1,4 +1,4 @@
-import { Dropdown, Navbar } from "flowbite-react";
+import { Dropdown, Navbar, Avatar } from "flowbite-react";
 import { useAppSelector } from "../redux/store";
 import { useAppDispatch } from "../redux/store";
 import { RiAccountCircleFill } from "react-icons/ri";
@@ -24,15 +24,10 @@ const AuthNavBar = () => {
           arrowIcon={false}
           inline
           label={
-            // <Avatar
-            //   alt="User settings"
-            //   img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-            //   rounded
-            // />
-            <RiAccountCircleFill
-              size={40}
-              color="disabled"
-              style={{ color: "white" }}
+            <Avatar
+              alt="User settings"
+              img={user.profileurl}
+              rounded
             />
           }
         >
@@ -83,7 +78,7 @@ const AuthNavBar = () => {
           </Navbar.Link>
         </Link>
       </Navbar.Collapse>
-    </Navbar>
+    </Navbar >
   );
 };
 
