@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { AiTwotoneEdit } from "react-icons/ai";
 import { useChangeProfilePictureMutation } from "../../redux/services/UserService";
+import { Spinner } from "flowbite-react";
 const ProfilePic = ({ picture }) => {
   const [imageURL, setImageURL] = useState(picture);
   const [isHovering, setIsHovering] = useState(false);

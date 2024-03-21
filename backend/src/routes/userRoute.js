@@ -11,4 +11,5 @@ router.post(
   AuthController.authenticateToken,
   UserController.changePassword
 );
+router.patch("/pfp", AuthController.authenticateToken, UserController.changePFP);
 module.exports = router;
