@@ -37,9 +37,7 @@ const UserInfoTab = () => {
       <h3 className="text-xl font-bold text-gray-900 mb-2">User Info</h3>
       <div className="flex gap-10 items-center">
         <ProfilePic
-          picture={
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXGl68Y0oCfYlx18OswvBI5QNYjr7bHdCCUvAf8lHeig&s"
-          }
+          picture={user.profileurl}
         />
         <div>
           <div className="flex justify-center gap-4">
