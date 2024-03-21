@@ -1,7 +1,11 @@
 const express = require("express");
 const UserController = require("../controllers/UserController");
 const AuthController = require("../controllers/AuthController");
+const multer = require("multer");
+
 const router = express.Router();
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 router.get("/", AuthController.authenticateToken, UserController.getUsers);
 router.get("/:user_id", UserController.getUserByID);
@@ -11,5 +15,10 @@ router.post(
   AuthController.authenticateToken,
   UserController.changePassword
 );
-router.patch("/pfp", AuthController.authenticateToken, UserController.changePFP);
+router.patch(
+  "/pfp",
+  AuthController.authenticateToken,
+  upload.single("profileurl"),
+  UserController.changePFP
+);
 module.exports = router;
