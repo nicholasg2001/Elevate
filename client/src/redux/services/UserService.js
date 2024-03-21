@@ -46,7 +46,7 @@ export const userAPI = createApi({
     changeProfilePicture: builder.mutation({
       query: ({ file }) => {
         const formData = new FormData();
-        formData.append("photoURL", file);
+        formData.append("profileurl", file);
 
         return {
           url: "/pfp",

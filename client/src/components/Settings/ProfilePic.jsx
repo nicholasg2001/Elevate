@@ -2,12 +2,18 @@ import { useState, useRef } from "react";
 import { AiTwotoneEdit } from "react-icons/ai";
 import { useChangeProfilePictureMutation } from "../../redux/services/UserService";
 import { Spinner } from "flowbite-react";
+import { updateUserDetails } from "../../redux/feats/auth/authSlice";
+import { useAppSelector, useAppDispatch } from './../../redux/store';
+import { toast } from "../../redux/feats/global/globalSlice";
 const ProfilePic = ({ picture }) => {
   const [imageURL, setImageURL] = useState(picture);
   const [isHovering, setIsHovering] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef(null);
   const [changeProfilePicture] = useChangeProfilePictureMutation();
+
+  const user = useAppSelector((state) => state.auth.user);
+  const dispatch = useAppDispatch();
 
   const handleProfilePicClick = () => {
     if (fileInputRef.current) {
@@ -25,12 +31,12 @@ const ProfilePic = ({ picture }) => {
           file: selectedFile,
         }).unwrap();
         const updatedUser = {
-          ...userInfo,
-          photoURL: request.imageUrl,
+          ...user,
+          profileurl: request.profileURL,
         };
-        dispatch(updateUserInfo(updatedUser));
-        setImageURL(request.imageUrl);
-        showToast(ToastEnum.UPDATE_PROFILE_PICTURE);
+        dispatch(updateUserDetails(updatedUser));
+        setImageURL(request.profileURL);
+        dispatch(toast({ state: true, message: "successfully changed profile picture" }));
       } finally {
         setIsLoading(false);
       }
