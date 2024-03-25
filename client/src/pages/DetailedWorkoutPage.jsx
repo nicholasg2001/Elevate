@@ -1,28 +1,21 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { useGetWorkoutByNameQuery } from "../redux/services/WorkoutService";
 
 const DetailedWorkoutPage = () => {
 
   const { name } = useParams();
-  const [ workout, setWorkout ] = useState(null);
+
   const [ error, setError ] = useState(null);
   const [ showFullInstructions, setShowFullInstructions ] = useState(false);
-
+  const { data, isLoading} = useGetWorkoutByNameQuery({ name: name });
+  const [ workout, setWorkout ] = useState(data);
   useEffect(() => {
-
-    const getWorkout = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3001/api/workouts/${name}`); 
-        setWorkout(response.data);
-      } catch (error) {
-        setError(error.response.data.error);
-      }
-    };
-
-    getWorkout();
-
-  }, [name]);
+    if (!isLoading && data) {
+      setWorkout(data);
+    }
+    console.log(workout);
+  }, [name, data, isLoading]); 
 
   if(error){
     return <div>Error: {error}</div>
@@ -39,8 +32,7 @@ const DetailedWorkoutPage = () => {
   };
 
   const truncatedInstructions = truncateText(workout.instructions, 100);
-  const remainingInstructions = workout.instructions.substring(truncatedInstructions.length);
-
+  
   return (
     <div className="h-screen w-screen bg-gradient-to-b from-color7 to-color3 py-8">
       <div className="max-w-4xl mx-auto px-4">
