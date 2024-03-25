@@ -1,13 +1,36 @@
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 const DetailedWorkoutPage = () => {
-  const workout = {
-    //able to add more as needed
-    title: "Sample Workout",
-    videoUrl: "https://www.youtube.com/embed/ErZhd3qvPYs",
-    instructions: "Go Brazy For five sets of six reps",
-    type: "Cardio",
-    muscle: "Legs",
-    difficulty: "Intermediate",
-  };
+
+  const { name } = useParams();
+  const [ workout, setWorkout ] = useState(null);
+  const [ error, setError ] = useState(null);
+
+  console.log(name)
+
+  useEffect(() => {
+
+    const getWorkout = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/api/workouts/${name}`); 
+        setWorkout(response.data);
+      } catch (error) {
+        setError(error.response.data.error);
+      }
+    };
+
+    getWorkout();
+
+  }, [name]);
+
+  if(error){
+    return <div>Error: {error}</div>
+  }
+
+  if(!workout){
+    return <div>Loading {name}...</div>
+  }
 
   return (
     <div className="h-screen w-screen bg-gradient-to-b from-color7 to-color3 py-8">
