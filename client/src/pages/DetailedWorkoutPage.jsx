@@ -1,27 +1,37 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useGetWorkoutByNameQuery } from "../redux/services/WorkoutService";
+import { useGetVideoQuery } from "../redux/services/VideoService";
+
 
 const DetailedWorkoutPage = () => {
 
-  const { name } = useParams();
-
-  const [ error, setError ] = useState(null);
+  const { name: name } = useParams();
   const [ showFullInstructions, setShowFullInstructions ] = useState(false);
-  const { data, isLoading} = useGetWorkoutByNameQuery({ name: name });
-  const [ workout, setWorkout ] = useState(data);
+  const { data: videoData, isLoading: isVideoLoading } = useGetVideoQuery({ name: name });
+  const { data: workoutData, isLoading: isWorkoutLoading, error} = useGetWorkoutByNameQuery({ name: name });
+  const [ workout, setWorkout ] = useState(workoutData);
+  const [ videoURL, setVideoURL ] = useState(videoData);
+
   useEffect(() => {
-    if (!isLoading && data) {
-      setWorkout(data);
+    if (!isWorkoutLoading && workoutData) {
+      setWorkout(workoutData);
     }
-    console.log(workout);
-  }, [name, data, isLoading]); 
+  }, [name, workoutData, isWorkoutLoading]); 
+
+  useEffect(() => {
+    if(!isVideoLoading && videoData) {
+      setVideoURL(`https://youtube.com/embed/${videoData.id.videoId}`)
+    }
+  }, [name, videoData, isVideoLoading]);
+
+  console.log(videoURL);
 
   if(error){
-    return <div>Error: {error}</div>
+    return <div>Error: {error.data.error}</div>
   }
 
-  if(!workout){
+  if(!workout && !error){
     return <div>Loading {name}...</div>
   }
 
@@ -38,10 +48,10 @@ const DetailedWorkoutPage = () => {
       <div className="max-w-4xl mx-auto px-4">
         <div className="bg-white rounded-lg shadow-md p-6 h-auto">
           <h2 className="text-2xl font-semibold mb-4">{workout.name}</h2>
-          <div className="aspect-w-16 aspect-h-9 mb-4">
+          <div className="h-64 w-full mb-4">
             <iframe
-              title="Workout Video"
-              src={workout.videoUrl}
+              title="Tutorial Video"
+              src={videoURL}
               className="w-full h-full"
               allowFullScreen
             ></iframe>
