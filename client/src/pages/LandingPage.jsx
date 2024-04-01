@@ -1,7 +1,7 @@
 import LandingPageBox from "../components/landingPage/LandingPageBox";
 import LandingNavBar from "../components/LandingNavBar";
 import Testimonials from '../components/landingPage/Testimonials';
-import AboutUs from '../components/landingPage/AboutUs';
+// import AboutUs from '../components/landingPage/AboutUs';
 
 
 const LandingPage = () => {
