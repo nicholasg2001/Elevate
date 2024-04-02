@@ -1,6 +1,6 @@
 const NutritionsFacts = ({ daily, nutritions }) => {
   return (
-    <div className="w-1/2 flex flex-col gap-4 shadow-xl bg-white text-slate-700 rounded-xl px-5 py-2">
+    <div className="w-full xl:w-1/2 flex flex-col gap-4 shadow-xl bg-white text-slate-700 rounded-xl px-5 py-2">
       <div className="flex flex-col gap-1">
         <h1 className="text-4xl font-bold">Nutrition Facts</h1>
         <div className="border-b w-full border-gray-300" />
