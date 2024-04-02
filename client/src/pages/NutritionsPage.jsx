@@ -2,16 +2,9 @@ import { useParams } from "react-router";
 import { useEffect } from "react";
 import axios from "axios";
 import FoodDetailedChart from "../components/Main/Charts/FoodDetailsChart";
-const NutritionsPage = () => {
-  /*
-    we need the following:
-        - health labels
-        - total daily
-        - total nutrtions
-        
-    */
-  const { foodID } = useParams();
 
+const NutritionsPage = () => {
+  const { foodID } = useParams();
   //   useEffect(() => {
   //     const id = import.meta.env.VITE_APP_ID;
   //     const key = import.meta.env.VITE_APP_KEY;
@@ -79,6 +72,126 @@ const NutritionsPage = () => {
                     <span>273</span>
                   </div>
                   <div className="border-b-4 w-full border-gray-300"></div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <div className="flex justify-end font-bold text-xs">
+                    % Daily Value*
+                  </div>
+                  <div className="border-b w-full border-gray-300"></div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <div className="flex justify-between items-center">
+                    <h1 className="text-md font-bold">
+                      Total Fat <span className="font-normal">13.20g</span>
+                    </h1>
+                    <span className="font-bold">20%</span>
+                  </div>
+                  <div className="flex flex-col gap-1 ml-6">
+                    <div className="border-b w-full border-gray-300"></div>
+                    <div className="flex justify-between items-center">
+                      <h1 className="text-md font-normal">
+                        Saturated Fat 2.35g
+                      </h1>
+                      <span className="font-bold">12%</span>
+                    </div>
+                    <div className="border-b w-full border-gray-300"></div>
+                    <div className="flex justify-between items-center">
+                      <h1 className="text-md font-normal">Trans Fat 0.08g</h1>
+                    </div>
+                    <div className="border-b w-full border-gray-300"></div>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <h1 className="text-md font-bold">
+                    Cholesterol <span className="font-normal">9.00mg</span>
+                  </h1>
+                  <span className="font-bold">3%</span>
+                </div>
+                <div className="border-b w-full border-gray-300"></div>
+                {/* Missing Nutritional Facts */}
+                <div className="flex justify-between items-center">
+                  <h1 className="text-md font-bold">
+                    Sodium <span className="font-normal">320mg</span>
+                  </h1>
+                  <span className="font-bold">14%</span>
+                </div>
+                <div className="border-b w-full border-gray-300"></div>
+
+                <div className="flex justify-between items-center">
+                  <h1 className="text-md font-bold">
+                    Total Carbohydrate <span className="font-normal">35g</span>
+                  </h1>
+                  <span className="font-bold">12%</span>
+                </div>
+                <div className="border-b w-full border-gray-300"></div>
+
+                <div className="flex justify-between items-center">
+                  <h1 className="text-md font-bold">
+                    Dietary Fiber <span className="font-normal">2g</span>
+                  </h1>
+                  <span className="font-bold">8%</span>
+                </div>
+                <div className="border-b w-full border-gray-300"></div>
+
+                <div className="flex justify-between items-center">
+                  <h1 className="text-md font-bold">
+                    Total Sugar <span className="font-normal">5g</span>
+                  </h1>
+                </div>
+                <div className="border-b w-full border-gray-300"></div>
+
+                <div className="flex justify-between items-center">
+                  <h1 className="text-md font-bold">
+                    Included Sugars <span className="font-normal">3g</span>
+                  </h1>
+                </div>
+                <div className="border-b w-full border-gray-300"></div>
+
+                <div className="flex justify-between items-center">
+                  <h1 className="text-md font-bold">
+                    Protein <span className="font-normal">15g</span>
+                  </h1>
+                  <span className="font-bold">30%</span>
+                </div>
+                <div className="border-b w-full border-gray-300"></div>
+
+                <div className="flex justify-between items-center">
+                  <h1 className="text-md font-bold">
+                    Vitamin D <span className="font-normal">1.5mcg</span>
+                  </h1>
+                  <span className="font-bold">8%</span>
+                </div>
+                <div className="border-b w-full border-gray-300"></div>
+
+                <div className="flex justify-between items-center">
+                  <h1 className="text-md font-bold">
+                    Calcium <span className="font-normal">250mg</span>
+                  </h1>
+                  <span className="font-bold">25%</span>
+                </div>
+                <div className="border-b w-full border-gray-300"></div>
+
+                <div className="flex justify-between items-center">
+                  <h1 className="text-md font-bold">
+                    Iron <span className="font-normal">2.5mg</span>
+                  </h1>
+                  <span className="font-bold">14%</span>
+                </div>
+                <div className="border-b w-full border-gray-300"></div>
+
+                <div className="flex justify-between items-center">
+                  <h1 className="text-md font-bold">
+                    Potassium <span className="font-normal">400mg</span>
+                  </h1>
+                  <span className="font-bold">10%</span>
+                </div>
+                <div className="border-b w-full border-gray-300"></div>
+
+                <div className="flex justify-between items-center">
+                  <h1 className="text-md font-bold">
+                    Vitamin C <span className="font-normal">30mg</span>
+                  </h1>
+                  <span className="font-bold">50%</span>
                 </div>
               </div>
             </div>
