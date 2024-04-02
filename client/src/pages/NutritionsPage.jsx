@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import { useEffect } from "react";
 import axios from "axios";
 import FoodDetailedChart from "../components/Main/Charts/FoodDetailsChart";
+import NutritionsFacts from "../components/Foods/NutritionsFacts";
 
 const NutritionsPage = () => {
   const { foodID } = useParams();
@@ -44,157 +45,57 @@ const NutritionsPage = () => {
               <h1 className="text-4xl font-bold item">Cheese Pizza</h1>
             </div>
           </div>
+          <div className="border-b w-full border-gray-300" />
 
-          <div className="border-b-2 w-full border-black"></div>
-
-          <div className="flex justify-evenly w-full gap-6 h-full">
-            <div className="w-1/2 bg-blue-400">xl</div>
-
-            <div className="w-1/2 flex flex-col gap-4 shadow-xl bg-white text-slate-700 rounded-xl px-5 py-2">
-              <div className="flex flex-col gap-1">
-                <h1 className="text-4xl font-bold">Nutrition Facts</h1>
-                <div className="border-b-2 w-full border-gray-600"></div>
-              </div>
-              <div className="flex flex-col gap-2">
-                <div className="flex justify-between items-center">
-                  <h1 className="text-lg font-semibold">Serving Size</h1>
-                  <span className="font-semibold">(100 gram)</span>
+          <div className="flex justify-evenly w-full gap-6 h-full py-4">
+            <div className="flex flex-col gap-10 w-1/2">
+              <div className="flex justify-around items-center rounded-xl">
+                <div className="flex flex-col items-center justify-center">
+                  <span>Daily Value</span>
+                  <span>21%</span>
                 </div>
-                <div className="border-b-8 w-full border-gray-200"></div>
+                <div>
+                  <FoodDetailedChart />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <div className="flex gap-2 items-center">
+                    <div class="w-4 h-4 rounded-full bg-red-500" />
+                    <span className="font-semibold">26%</span> Fat
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <div class="w-4 h-4 rounded-full bg-orange-400" />
+                    <span className="font-semibold">35%</span> Carbs
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <div className="w-4 h-4 rounded-full bg-green-400" />
+                    <span className="font-semibold">39%</span> Protein
+                  </div>
+                </div>
+              </div>
+              <div className="bg-gray-200 p-4 grid grid-cols-3 gap-4 rounded-lg">
+                <div className="text-center">
+                  <div className="text-gray-600 mb-1 font-bold">Fats</div>
+                  <div className="text-black">11.29g</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-gray-600 mb-1 font-bold">Carbs</div>
+                  <div className="text-black">67.2g</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-gray-600 mb-1 font-bold">Protein</div>
+                  <div className="text-black">23g</div>
+                </div>
               </div>
               <div>
-                <div className="flex flex-col gap-2">
-                  <span className="text-md font-bold">
-                    Amount per 100 grams
-                  </span>
-                  <div className="flex justify-between items-center text-3xl font-bold">
-                    <h1>Calories</h1>
-                    <span>273</span>
-                  </div>
-                  <div className="border-b-4 w-full border-gray-300"></div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <div className="flex justify-end font-bold text-xs">
-                    % Daily Value*
-                  </div>
-                  <div className="border-b w-full border-gray-300"></div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <div className="flex justify-between items-center">
-                    <h1 className="text-md font-bold">
-                      Total Fat <span className="font-normal">13.20g</span>
-                    </h1>
-                    <span className="font-bold">20%</span>
-                  </div>
-                  <div className="flex flex-col gap-1 ml-6">
-                    <div className="border-b w-full border-gray-300"></div>
-                    <div className="flex justify-between items-center">
-                      <h1 className="text-md font-normal">
-                        Saturated Fat 2.35g
-                      </h1>
-                      <span className="font-bold">12%</span>
-                    </div>
-                    <div className="border-b w-full border-gray-300"></div>
-                    <div className="flex justify-between items-center">
-                      <h1 className="text-md font-normal">Trans Fat 0.08g</h1>
-                    </div>
-                    <div className="border-b w-full border-gray-300"></div>
-                  </div>
-                </div>
-                <div className="flex justify-between items-center">
-                  <h1 className="text-md font-bold">
-                    Cholesterol <span className="font-normal">9.00mg</span>
-                  </h1>
-                  <span className="font-bold">3%</span>
-                </div>
-                <div className="border-b w-full border-gray-300"></div>
-                {/* Missing Nutritional Facts */}
-                <div className="flex justify-between items-center">
-                  <h1 className="text-md font-bold">
-                    Sodium <span className="font-normal">320mg</span>
-                  </h1>
-                  <span className="font-bold">14%</span>
-                </div>
-                <div className="border-b w-full border-gray-300"></div>
-
-                <div className="flex justify-between items-center">
-                  <h1 className="text-md font-bold">
-                    Total Carbohydrate <span className="font-normal">35g</span>
-                  </h1>
-                  <span className="font-bold">12%</span>
-                </div>
-                <div className="border-b w-full border-gray-300"></div>
-
-                <div className="flex justify-between items-center">
-                  <h1 className="text-md font-bold">
-                    Dietary Fiber <span className="font-normal">2g</span>
-                  </h1>
-                  <span className="font-bold">8%</span>
-                </div>
-                <div className="border-b w-full border-gray-300"></div>
-
-                <div className="flex justify-between items-center">
-                  <h1 className="text-md font-bold">
-                    Total Sugar <span className="font-normal">5g</span>
-                  </h1>
-                </div>
-                <div className="border-b w-full border-gray-300"></div>
-
-                <div className="flex justify-between items-center">
-                  <h1 className="text-md font-bold">
-                    Included Sugars <span className="font-normal">3g</span>
-                  </h1>
-                </div>
-                <div className="border-b w-full border-gray-300"></div>
-
-                <div className="flex justify-between items-center">
-                  <h1 className="text-md font-bold">
-                    Protein <span className="font-normal">15g</span>
-                  </h1>
-                  <span className="font-bold">30%</span>
-                </div>
-                <div className="border-b w-full border-gray-300"></div>
-
-                <div className="flex justify-between items-center">
-                  <h1 className="text-md font-bold">
-                    Vitamin D <span className="font-normal">1.5mcg</span>
-                  </h1>
-                  <span className="font-bold">8%</span>
-                </div>
-                <div className="border-b w-full border-gray-300"></div>
-
-                <div className="flex justify-between items-center">
-                  <h1 className="text-md font-bold">
-                    Calcium <span className="font-normal">250mg</span>
-                  </h1>
-                  <span className="font-bold">25%</span>
-                </div>
-                <div className="border-b w-full border-gray-300"></div>
-
-                <div className="flex justify-between items-center">
-                  <h1 className="text-md font-bold">
-                    Iron <span className="font-normal">2.5mg</span>
-                  </h1>
-                  <span className="font-bold">14%</span>
-                </div>
-                <div className="border-b w-full border-gray-300"></div>
-
-                <div className="flex justify-between items-center">
-                  <h1 className="text-md font-bold">
-                    Potassium <span className="font-normal">400mg</span>
-                  </h1>
-                  <span className="font-bold">10%</span>
-                </div>
-                <div className="border-b w-full border-gray-300"></div>
-
-                <div className="flex justify-between items-center">
-                  <h1 className="text-md font-bold">
-                    Vitamin C <span className="font-normal">30mg</span>
-                  </h1>
-                  <span className="font-bold">50%</span>
+                <h1 className="text-3xl font-semibold">Nutrition claims</h1>
+                <div className=" flex gap-1">
+                  <span className="text-gray-600 ">•Low Fat abs</span>
+                  <div className="text-gray-600">•Low Fat abs</div>
+                  <div className="text-gray-600">•Low Fat abs</div>
                 </div>
               </div>
             </div>
+            <NutritionsFacts />
           </div>
         </div>
       </div>
