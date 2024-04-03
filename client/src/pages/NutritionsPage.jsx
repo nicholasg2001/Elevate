@@ -1,23 +1,25 @@
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
+import { Spinner } from "flowbite-react";
+import { useAppDispatch, useAppSelector } from "../redux/store";
 import axios from "axios";
 import FoodDetailedChart from "../components/Main/Charts/FoodDetailsChart";
 import NutritionsFacts from "../components/Foods/NutritionsFacts";
-import { Spinner } from "flowbite-react";
+import { closeFoodModal } from "../redux/feats/global/globalSlice";
 const NutritionsPage = () => {
+  const uri = useAppSelector((state) => state.global.foodSelection.uri);
   const { foodID } = useParams();
   const [response, setResponse] = useState();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     const id = import.meta.env.VITE_APP_ID;
     const key = import.meta.env.VITE_APP_KEY;
-    // we maybe change this later on with redux
-    // we also might need to change the measureURI as well....
+    dispatch(closeFoodModal());
     const defaultQuantity = {
       ingredients: [
         {
           quantity: 1,
-          measureURI:
-            "http://www.edamam.com/ontologies/edamam.owl#Measure_unit",
+          measureURI: uri,
           foodId: foodID,
         },
       ],
@@ -29,7 +31,6 @@ const NutritionsPage = () => {
       )
       .then((res) => {
         setResponse(res.data);
-        console.log(response);
       })
       .catch((err) => {
         console.log(err);
@@ -55,7 +56,7 @@ const NutritionsPage = () => {
               <div className="border-b w-full border-gray-300" />
               <div className="flex xl:justify-evenly xl:flex-row flex-col items-center w-full gap-6 h-full py-4">
                 <div className="flex flex-col gap-10 xl:w-1/2 w-full">
-                  <div className="flex xl:justify-around w-full items-center rounded-xl">
+                  <div className="flex xl:justify-around justify-center w-full items-center rounded-xl">
                     <div className="flex flex-col items-center justify-center text-md lg:text-2xl">
                       <span className="font-bold ">Calories</span>
                       <span>{response.calories}</span>
@@ -129,16 +130,23 @@ const NutritionsPage = () => {
                   </div>
                   <div>
                     <h1 className="text-3xl font-semibold">Nutrition claims</h1>
-                    <div className="flex gap-1 flex-wrap bg-white rounded-xl p-3">
-                      {response.healthLabels.map((label) => (
-                        <div className="text-gray-600">•{label}</div>
-                      ))}
-                    </div>
+                    {response.healthLabels.length === 0 ? (
+                      <div className="flex items-center justify-center h-20 w-full bg-white rounded-lg">
+                        None
+                      </div>
+                    ) : (
+                      <div className="flex gap-1 flex-wrap bg-white rounded-xl p-3">
+                        {response.healthLabels.map((label) => (
+                          <div className="text-gray-600">•{label}</div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
                 <NutritionsFacts
                   daily={response.totalDaily}
                   nutritions={response.totalNutrients}
+                  serving={response.ingredients[0].parsed[0].measure}
                 />
               </div>
             </div>

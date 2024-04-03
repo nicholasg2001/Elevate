@@ -16,5 +16,6 @@ const transformHints = (hint) => {
   food.food_id = hint.food.foodId;
   food.name = hint.food.label;
   food.img = hint.food.image;
+  food.measures = hint.measures
   return food;
 };

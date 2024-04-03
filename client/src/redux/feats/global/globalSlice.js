@@ -5,6 +5,10 @@ const initialState = {
     state: false,
     message: "",
   },
+  foodSelection: {
+    label: "Select measurement",
+    uri: "",
+  },
   isWorkoutModalOpen: false,
   isFoodModalOpen: false,
   isGoogleSetupModalOpen: false,
@@ -18,17 +22,23 @@ const globalSlice = createSlice({
       state.toast.state = action.payload.state;
       state.toast.message = action.payload.message;
     },
+    foodSelection: (state, action) => {
+      state.foodSelection.label = action.payload.label;
+      state.foodSelection.uri = action.payload.uri;
+    },
     openWorkoutModal: (state) => {
       state.isWorkoutModalOpen = true;
     },
     closeWorkoutModal: (state) => {
       state.isWorkoutModalOpen = false;
     },
-    openFoodModal: (state) =>{
-        state.isFoodModalOpen = true;
+    openFoodModal: (state) => {
+      state.isFoodModalOpen = true;
     },
-    closeFoodModal: (state) =>{
-        state.isFoodModalOpen = false;
+    closeFoodModal: (state) => {
+      state.isFoodModalOpen = false;
+      state.foodSelection.label = "Select measurement";
+      state.foodSelection.uri = "";
     },
     openGoogleSetupModal: (state) => {
       state.isGoogleSetupModalOpen = true;
@@ -42,6 +52,7 @@ const globalSlice = createSlice({
 export default globalSlice.reducer;
 export const {
   toast,
+  foodSelection,
   openWorkoutModal,
   closeWorkoutModal,
   openFoodModal,
