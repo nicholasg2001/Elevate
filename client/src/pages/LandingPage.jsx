@@ -1,8 +1,7 @@
 import LandingPageBox from "../components/landingPage/LandingPageBox";
 import LandingNavBar from "../components/LandingNavBar";
 import Testimonials from '../components/landingPage/Testimonials';
-// import AboutUs from '../components/landingPage/AboutUs';
-
+import AboutUs from "../components/landingPage/AboutUs";
 
 const LandingPage = () => {
   return (
@@ -10,8 +9,8 @@ const LandingPage = () => {
       <LandingNavBar />
       <div className="flex flex-col justify-center items-center h-full">
         <LandingPageBox />
-          <Testimonials />
-          {/*<AboutUs />*/}
+          <Testimonials id="testimonials"/>
+          <AboutUs id="aboutus" />
       </div>
     </div>
   );
