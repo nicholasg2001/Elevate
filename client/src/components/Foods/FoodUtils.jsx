@@ -1,12 +1,12 @@
 export const transformFoodData = (response) => {
   const result = [];
   for (const hint of response) {
-    result.push(transform(hint));
+    result.push(transformHints(hint));
   }
   return result;
 };
 
-const transform = (hint) => {
+const transformHints = (hint) => {
   let food = {};
   food.calories = Number((hint.food.nutrients?.ENERC_KCAL ?? 0).toFixed(2));
   food.fat = Number((hint.food.nutrients?.FAT ?? 0).toFixed(2));
@@ -16,5 +16,6 @@ const transform = (hint) => {
   food.food_id = hint.food.foodId;
   food.name = hint.food.label;
   food.img = hint.food.image;
+  food.measures = hint.measures
   return food;
 };

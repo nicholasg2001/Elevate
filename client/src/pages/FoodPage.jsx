@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import axios from "axios";
 import FoodsContainer from "../components/Foods/FoodsContainer";

@@ -66,19 +66,19 @@ const AuthNavBar = () => {
       </div>
       <Navbar.Collapse>
         <Link to="/auth/exercises">
-          <Navbar.Link className="font-poppins text-white text-2xl md:hover:text-blue-800">
+          <Navbar.Link className="font-poppins text-white hover:text-black text-2xl md:hover:text-blue-800">
             Exercises
           </Navbar.Link>
         </Link>
 
         <Link to="/auth/foods">
-          <Navbar.Link className="font-poppins text-white text-2xl md:hover:text-blue-800">
+          <Navbar.Link className="font-poppins text-white hover:text-black text-2xl md:hover:text-blue-800">
             Foods
           </Navbar.Link>
         </Link>
 
         <Link to="/auth/trainers">
-          <Navbar.Link className="font-poppins text-white text-2xl md:hover:text-blue-800">
+          <Navbar.Link className="font-poppins text-white hover:text-black text-2xl md:hover:text-blue-800">
             Trainers
           </Navbar.Link>
         </Link>
