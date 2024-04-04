@@ -12,8 +12,6 @@ const WorkoutsContainer = ({ search }) => {
 
   const {
     data,
-    error,
-    status,
     fetchNextPage,
     isFetchingNextPage,
     hasNextPage,

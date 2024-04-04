@@ -6,6 +6,7 @@ const initialState = {
     message: "",
   },
   isWorkoutModalOpen: false,
+  isFoodModalOpen: false,
   isGoogleSetupModalOpen: false,
 };
 
@@ -23,6 +24,12 @@ const globalSlice = createSlice({
     closeWorkoutModal: (state) => {
       state.isWorkoutModalOpen = false;
     },
+    openFoodModal: (state) =>{
+        state.isFoodModalOpen = true;
+    },
+    closeFoodModal: (state) =>{
+        state.isFoodModalOpen = false;
+    },
     openGoogleSetupModal: (state) => {
       state.isGoogleSetupModalOpen = true;
     },
@@ -37,6 +44,8 @@ export const {
   toast,
   openWorkoutModal,
   closeWorkoutModal,
+  openFoodModal,
+  closeFoodModal,
   openGoogleSetupModal,
   closeGoogleSetupModal,
 } = globalSlice.actions;

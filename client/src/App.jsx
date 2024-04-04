@@ -8,6 +8,7 @@ import MainPage from "./pages/MainPage";
 import SettingPage from "./pages/SettingPage";
 import WorkoutPage from "./pages/WorkoutPage";
 import DetailedWorkoutPage from "./pages/DetailedWorkoutPage";
+import FoodPage from "./pages/FoodPage";
 const App = () => {
   return (
     <>
@@ -20,7 +21,8 @@ const App = () => {
           <Route path="main" element={<MainPage />} />
           <Route path="setting" element={<SettingPage />} />
           <Route path="exercises" element={<WorkoutPage />} />
-          <Route path="detailedWorkout" element={<DetailedWorkoutPage />} />
+          <Route path="detailedWorkout/:name" element={<DetailedWorkoutPage />} />
+          <Route path="foods" element={<FoodPage/>} />
         </Route>
       </Routes>
     </>

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
 import elevateLogo from "/src/assets/logo.png";
 
 const LandingNavBar = () => {
@@ -27,7 +28,6 @@ const LandingNavBar = () => {
               Testimonials
             </Link>
           </li>
-
           <li>
             <button className="text-xl text-white font-poppins bg-gradient-to-r from-blue-500 to-blue-700 overflow-hidden hover:from-blue-600 hover:to-blue-800 py-3 px-6 rounded-full transform transition-all duration-500 ease-in-out hover:brightness-110 hover:animate-pulse">
               <Link to="/login" className="font-poppins text-white text-xl">
