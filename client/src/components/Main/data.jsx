@@ -11,10 +11,6 @@ export const PieData = [
     workout: "Legs",
     reps: 300,
   },
-  {
-    workout: "Abs",
-    reps: 200,
-  },
 ];
 export const BarData = [
   {

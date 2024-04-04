@@ -32,30 +32,30 @@ export const workoutAPI = createApi({
         url: `/${name}`,
         method: "GET",
       }),
-      providesTags: ["Hobbies"],
+      providesTags: ["workout"],
     }),
     getWorkoutsByMuscle: builder.query({
       query: ({ muscle }) => ({
         url: `/muscle/${muscle}`,
         method: "GET",
       }),
-      providesTags: ["Workouts"],
+      providesTags: ["workout"],
     }),
     getWorkoutsByType: builder.query({
       query: ({ type }) => ({
         url: `/type/${type}`,
         method: "GET",
       }),
-      providesTags: ["Workouts"],
+      providesTags: ["workouts"],
     }),
     getWorkoutsByDifficulty: builder.query({
       query: ({ difficulty }) => ({
         url: `/difficulty/${difficulty}`,
         method: "GET",
       }),
-      providesTags: ["Workouts"],
+      providesTags: ["workouts"],
     }),
   }),
 });
 
-export const { useGetAllWorkoutsQuery } = workoutAPI;
+export const { useGetAllWorkoutsQuery, useGetWorkoutByNameQuery } = workoutAPI;

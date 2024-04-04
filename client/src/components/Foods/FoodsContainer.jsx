@@ -1,68 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FoodCard from "./FoodCard";
-const FoodContainer = () => {
-  const [foodID, setFoodID] = useState(0);
-  const mockFoodData = [
-    {
-      food_id: "1",
-      name: "Pizza",
-      calories: "410",
-      protein: "14",
-      fat: "23",
-      fiber: "2",
-    },
-    {
-      food_id: "2",
-      name: "Burger",
-      calories: "240",
-      protein: "20",
-      fat: "10",
-      fiber: "3",
-    },
-    {
-      food_id: "3",
-      name: "Water",
-      calories: "0",
-      protein: "0",
-      fat: "0",
-      fiber: "0",
-    },
-    {
-      food_id: "4",
-      name: "French Fries",
-      calories: "210",
-      protein: "2",
-      fat: "20",
-      fiber: "5",
-    },
-    {
-      food_id: "5",
-      name: "Hot Dogs",
-      calories: "324",
-      protein: "20",
-      fat: "15",
-      fiber: "3",
-    },
-    {
-      food_id: "6",
-      name: "Pancakes",
-      calories: "200",
-      protein: "2",
-      fat: "20",
-      fiber: "8",
-    },
-  ];
+import AddDailyFoodModal from "../Modals/AddDailyFoodModal";
+import { initialFoodData } from "./foodData";
+import { transformFoodData } from "./FoodUtils";
+import FoodModal from "../Modals/FoodModal";
+import { useAppDispatch } from "../../redux/store";
+import { openFoodModal } from "../../redux/feats/global/globalSlice";
+const FoodContainer = ({ search }) => {
+  const [foodID, setFoodID] = useState("");
+  const [foods, setFoods] = useState(initialFoodData);
+  const [foodName, setFoodName] = useState("");
+  const [measures, setMeasures] = useState([]);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (search.length !== 0) {
+      setFoods(transformFoodData(search));
+    }
+  }, [search]);
+  const foodClickHandler = (food) => {
+    setMeasures(food.measures);
+    setFoodID(food.food_id);
+    setFoodName(food.name);
+    dispatch(openFoodModal());
+  };
   return (
     <div className="container mx-auto p-4 lg:p-10 relative">
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-        {mockFoodData.map((food) => (
+        {foods.map((food) => (
           <FoodCard
             key={food.food_id}
             food={food}
-            onClick={() => setFoodID(food.food_id)}
+            onClick={() => foodClickHandler(food)}
           />
         ))}
       </div>
+      <FoodModal foodID={foodID} measures={measures} name={foodName} />
     </div>
   );
 };
