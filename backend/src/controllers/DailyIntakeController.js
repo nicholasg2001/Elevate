@@ -7,7 +7,7 @@ const insertIntake = async (req, res) => {
     const currentDate = new Date();
     try {
         const insertedIntake = await db.one(
-            "INSERT INTO dailyIntake(user_id, food_id, date) VALUES($1, $2, $3, $4) RETURNING *",
+            "INSERT INTO dailyIntake(user_id, food_id, date) VALUES($1, $2, $3) RETURNING *",
             [userId, foodID, currentDate]
         );
         res.status(200).send(insertedIntake);
