@@ -1,5 +1,8 @@
 const db = require("../database/database");
 const bcrypt = require("bcrypt");
+const cloudinary = require('cloudinary').v2;
+
+
 const getUsers = async (req, res) => {
   try {
     const users = await db.any("SELECT * FROM users");
@@ -76,9 +79,49 @@ const changePassword = async (req, res) => {
   }
 };
 
+
+const changePFP = async (req, res) => {
+  const userId = req.user.data.user_id;
+  try {
+    const file = req.file;
+    const buffer = file.buffer;
+    const fileData = buffer.toString("base64");
+    const defaultPicture =
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXGl68Y0oCfYlx18OswvBI5QNYjr7bHdCCUvAf8lHeig&s";
+    const user = await db.oneOrNone("SELECT * FROM users WHERE user_id = $1", [
+      userId,
+    ]);
+    if (user.profileurl !== defaultPicture) {
+      const publicID = user.profileurl.split('/').pop().split('.')[0];
+      await cloudinary.uploader.destroy('pfps/', publicID);
+    }
+    const result = await cloudinary.uploader.upload(
+      `data:image/jpeg;base64,${fileData}`,
+      {
+        folder: "pfps",
+        transformation: [{ width: 300, height: "300", crop: "fill" }],
+      }
+    );
+    await db.none("UPDATE users SET profileurl = $2 WHERE user_id = $1", [
+      userId,
+      result.secure_url,
+    ]);
+    res.status(200).send({
+      message: "Profile picture updated",
+      profileURL: result.secure_url,
+    });
+  } catch (error) {
+    console.error("Error uploading image to Cloudinary:", error.message);
+    return res.status(500).send({ error: "Internal server error" });
+  }
+};
+
+
+
 module.exports = {
   getUsers,
   updateUser,
   getUserByID,
   changePassword,
+  changePFP
 };

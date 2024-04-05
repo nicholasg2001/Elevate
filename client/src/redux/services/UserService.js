@@ -42,7 +42,7 @@ export const userAPI = createApi({
         formData.append("photoURL", file);
 
         return {
-          url: "/image",
+          url: "/pfp",
           method: "PATCH",
           body: formData,
         };
