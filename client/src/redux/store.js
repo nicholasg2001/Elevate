@@ -6,6 +6,7 @@ import { userAPI } from "./services/UserService";
 import { workoutAPI } from "./services/WorkoutService";
 import { dailyWorkoutAPI } from "./services/DailyWorkoutService";
 import { videoAPI } from "./services/VideoService";
+import { dailyFoodAPI } from "./services/DailyFoodService";
 const store = configureStore({
   reducer: {
     auth: authSliceReducer,
@@ -13,6 +14,7 @@ const store = configureStore({
     [userAPI.reducerPath]: userAPI.reducer,
     [workoutAPI.reducerPath]: workoutAPI.reducer,
     [dailyWorkoutAPI.reducerPath]: dailyWorkoutAPI.reducer,
+    [dailyFoodAPI.reducerPath]: dailyFoodAPI.reducer,
     [videoAPI.reducerPath]: videoAPI.reducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -20,6 +22,7 @@ const store = configureStore({
       .concat(userAPI.middleware)
       .concat(workoutAPI.middleware)
       .concat(dailyWorkoutAPI.middleware)
+      .concat(dailyFoodAPI.middleware)
       .concat(videoAPI.middleware),
 });
 

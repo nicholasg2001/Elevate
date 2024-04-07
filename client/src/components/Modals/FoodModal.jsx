@@ -10,15 +10,16 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import DailyFoodQuantity from "../Foods/DailyFoodQuantity";
 import { useAddDailyFoodMutation } from "../../redux/services/DailyFoodService";
+import axios from "axios";
+import { toast } from "../../redux/feats/global/globalSlice";
 
 const FoodModal = ({ foodID, measures, name }) => {
   const [foodError, setFoodError] = useState(true);
-  const addDailyFood = useAddDailyFoodMutation();
+  const [addDailyFood] = useAddDailyFoodMutation();
   const dispatch = useAppDispatch();
   const isModalOpen = useAppSelector((state) => state.global.isFoodModalOpen);
-  const { label: foodLabel } = useAppSelector(
-    (state) => state.global.foodSelection
-  );
+  const foodObject = useAppSelector((state) => state.global.foodSelection);
+  const quantity = useAppSelector((state) => state.global.foodQuantity);
   const onDropDownSelection = (measure) => {
     setFoodError(false);
     dispatch(foodSelection({ label: measure.label, uri: measure.uri }));
@@ -31,10 +32,36 @@ const FoodModal = ({ foodID, measures, name }) => {
 
   const onDailyFoodAdded = async () => {
     try {
-        // WIP WE might need to change our endpoints significantly for this to work actually
-      await addDailyFood({
-        food_id: foodID,
-      });
+      const id = import.meta.env.VITE_APP_ID;
+      const key = import.meta.env.VITE_APP_KEY;
+      const defaultQuantity = {
+        ingredients: [
+          {
+            quantity: quantity,
+            measureURI: foodObject.uri,
+            foodId: foodID,
+          },
+        ],
+      };
+      axios
+        .post(
+          `https://api.edamam.com/api/food-database/v2/nutrients?app_id=${id}&app_key=${key}`,
+          defaultQuantity
+        )
+        .then((res) => {
+          addDailyFood({
+            name: name,
+            food_id: foodID,
+            calories: res.data.calories,
+            fat: res.data.totalNutrients.FAT,
+            carbs: res.data.totalNutrients.CHOCDF,
+            protein: res.data.totalNutrients.PROCNT,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
       dispatch(closeFoodModal());
       dispatch(toast({ state: true, message: "Food added successfully." }));
     } catch (error) {
@@ -55,7 +82,7 @@ const FoodModal = ({ foodID, measures, name }) => {
         <div className="flex gap-12 justify-evenly">
           <div>
             <label className="text-xl">Measurements</label>
-            <Dropdown label={foodLabel}>
+            <Dropdown label={foodObject.label}>
               {measures.map((measure) => (
                 <Dropdown.Item
                   key={measure.label}
