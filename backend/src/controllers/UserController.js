@@ -89,12 +89,10 @@ const changePFP = async (req, res) => {
     const user = await db.oneOrNone("SELECT * FROM users WHERE user_id = $1", [
       userId,
     ]);
-
     if (user.profileurl !== defaultPicture) {
       const publicID = user.profileurl.split('/').pop().split('.')[0];
       await cloudinary.uploader.destroy('pfps/', publicID);
     }
-
     const result = await cloudinary.uploader.upload(
       `data:image/jpeg;base64,${fileData}`,
       {

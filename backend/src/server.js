@@ -7,7 +7,9 @@ const authRoute = require("./routes/authRoute.js");
 const externalApiRoute = require("./routes/externalApiRoute.js");
 const dailyWorkoutsRoute = require("./routes/dailyWorkoutsRoute.js");
 const workoutsRoute = require("./routes/workoutsRoute.js");
-const cloudinary = require('cloudinary').v2;
+const intakesRoute = require("./routes/dailyIntakeRoute.js");
+const videosRoute = require("./routes/videoRoute.js")
+const cloudinary = require("cloudinary").v2;
 
 const app = express();
 
@@ -26,8 +28,8 @@ app.use("/api/auth", authRoute);
 app.use("/api/external", externalApiRoute);
 app.use("/api/dailyWorkouts", dailyWorkoutsRoute);
 app.use("/api/workouts", workoutsRoute);
-
-
+app.use("/api/videos", videosRoute)
+app.use("/api/intake", intakesRoute);
 
 
 app.listen(3001, () => {
