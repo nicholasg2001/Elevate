@@ -9,6 +9,7 @@ const initialState = {
     label: "Select measurement",
     uri: "",
   },
+  foodQuantity: 1,
   isWorkoutModalOpen: false,
   isFoodModalOpen: false,
   isGoogleSetupModalOpen: false,
@@ -25,6 +26,9 @@ const globalSlice = createSlice({
     foodSelection: (state, action) => {
       state.foodSelection.label = action.payload.label;
       state.foodSelection.uri = action.payload.uri;
+    },
+    foodQuantity: (state, action) => {
+      state.foodQuantity = action.payload
     },
     openWorkoutModal: (state) => {
       state.isWorkoutModalOpen = true;
@@ -53,6 +57,7 @@ export default globalSlice.reducer;
 export const {
   toast,
   foodSelection,
+  foodQuantity,
   openWorkoutModal,
   closeWorkoutModal,
   openFoodModal,

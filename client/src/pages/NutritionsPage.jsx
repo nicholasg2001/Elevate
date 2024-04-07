@@ -5,20 +5,26 @@ import { useAppDispatch, useAppSelector } from "../redux/store";
 import axios from "axios";
 import FoodDetailedChart from "../components/Main/Charts/FoodDetailsChart";
 import NutritionsFacts from "../components/Foods/NutritionsFacts";
-import { closeFoodModal } from "../redux/feats/global/globalSlice";
+import {
+  closeFoodModal,
+  foodQuantity,
+} from "../redux/feats/global/globalSlice";
+
 const NutritionsPage = () => {
   const uri = useAppSelector((state) => state.global.foodSelection.uri);
   const { foodID } = useParams();
   const [response, setResponse] = useState();
   const dispatch = useAppDispatch();
+  const quantity = useAppSelector((state) => state.global.foodQuantity);
   useEffect(() => {
     const id = import.meta.env.VITE_APP_ID;
     const key = import.meta.env.VITE_APP_KEY;
     dispatch(closeFoodModal());
+    dispatch(foodQuantity(1));
     const defaultQuantity = {
       ingredients: [
         {
-          quantity: 1,
+          quantity: quantity,
           measureURI: uri,
           foodId: foodID,
         },
