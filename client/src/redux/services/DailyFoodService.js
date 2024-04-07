@@ -36,10 +36,10 @@ export const dailyFoodAPI = createApi({
       providesTags: ["DailyFood"],
     }),
     addDailyFood: builder.mutation({
-      query: ({ food_id }) => ({
+      query: ({ name, food_id, quantity, calories, fat, carbs, protein }) => ({
         url: "/",
         method: "POST",
-        body: { food_id },
+        body: { name, food_id, quantity, calories, fat, carbs, protein },
       }),
       invalidatesTags: ["DailyFood"],
     }),
