@@ -1,7 +1,6 @@
 const db = require("../database/database");
 const bcrypt = require("bcrypt");
-const cloudinary = require('cloudinary').v2;
-
+const cloudinary = require("cloudinary").v2;
 
 const getUsers = async (req, res) => {
   try {
@@ -79,7 +78,6 @@ const changePassword = async (req, res) => {
   }
 };
 
-
 const changePFP = async (req, res) => {
   const userId = req.user.data.user_id;
   try {
@@ -116,12 +114,10 @@ const changePFP = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   getUsers,
   updateUser,
   getUserByID,
   changePassword,
-  changePFP
+  changePFP,
 };
