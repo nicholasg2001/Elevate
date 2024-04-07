@@ -7,37 +7,7 @@ import { closeFoodModal } from "../../redux/feats/global/globalSlice";
 import { toast } from "../../redux/feats/global/globalSlice";
 
 const AddDailyFoodModal = ({ food_id }) => {
-  const dispatch = useAppDispatch();
-  const isModalOpen = useAppSelector((state) => state.global.isFoodModalOpen);
-  const [addDailyFood] = useAddDailyFoodMutation();
-  const [quantity, setQuantity] = useState(0);
 
-  const incrementQuantity = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
-  };
-
-  const decrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
-    }
-  };
-
-  const onDailyFoodAdded = async () => {
-    try {
-      await addDailyFood({
-        food_id: food_id,
-      });
-      dispatch(closeFoodModal());
-      dispatch(toast({ state: true, message: "Food added successfully." }));
-    } catch (error) {
-      console.error(error);
-      dispatch(toast({ state: true, message: "Could not add Food failed." }));
-    }
-  };
-
-  const resetModalValues = () => {
-    // reset if needed
-  };
 
   return (
     <Modal
