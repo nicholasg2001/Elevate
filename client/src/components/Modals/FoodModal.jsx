@@ -5,12 +5,15 @@ import {
   foodSelection,
 } from "../../redux/feats/global/globalSlice";
 import { Dropdown } from "flowbite-react";
-import { FaUtensils, FaBook} from "react-icons/fa";
+import { FaUtensils, FaBook } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import DailyFoodQuantity from "../Foods/DailyFoodQuantity";
+import { useAddDailyFoodMutation } from "../../redux/services/DailyFoodService";
+
 const FoodModal = ({ foodID, measures, name }) => {
   const [foodError, setFoodError] = useState(true);
+  const addDailyFood = useAddDailyFoodMutation();
   const dispatch = useAppDispatch();
   const isModalOpen = useAppSelector((state) => state.global.isFoodModalOpen);
   const { label: foodLabel } = useAppSelector(
@@ -20,6 +23,7 @@ const FoodModal = ({ foodID, measures, name }) => {
     setFoodError(false);
     dispatch(foodSelection({ label: measure.label, uri: measure.uri }));
   };
+
   const modalClose = () => {
     dispatch(closeFoodModal());
     setFoodError(true);
@@ -27,6 +31,7 @@ const FoodModal = ({ foodID, measures, name }) => {
 
   const onDailyFoodAdded = async () => {
     try {
+        // WIP WE might need to change our endpoints significantly for this to work actually
       await addDailyFood({
         food_id: foodID,
       });
@@ -61,7 +66,7 @@ const FoodModal = ({ foodID, measures, name }) => {
               ))}
             </Dropdown>
           </div>
-          <DailyFoodQuantity food_id={foodID} />
+          <DailyFoodQuantity />
         </div>
       </Modal.Body>
       {!foodError && (
