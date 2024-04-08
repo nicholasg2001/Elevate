@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import FoodCard from "./FoodCard";
-import AddDailyFoodModal from "../Modals/AddDailyFoodModal";
 import { initialFoodData } from "./foodData";
 import { transformFoodData } from "./FoodUtils";
 import FoodModal from "../Modals/FoodModal";
