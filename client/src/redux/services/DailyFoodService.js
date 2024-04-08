@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-let BASE_URL = "http://localhost:3001/api/dailyFood";
+let BASE_URL = "http://localhost:3001/api/dailyFoods";
 
 export const dailyFoodAPI = createApi({
   reducerPath: "dailyFoodAPI",
@@ -27,10 +27,26 @@ export const dailyFoodAPI = createApi({
       }),
       providesTags: ["DailyFood"],
     }),
+    getDailyFoodByDate: builder.query({
+      query: ({ date }) => ({
+        url: "/date",
+        method: "GET",
+        body: { date },
+      }),
+      providesTags: ["DailyFood"],
+    }),
     addDailyFood: builder.mutation({
-      query: ({ food_id }) => ({
+      query: ({ name, food_id, quantity, calories, fat, carbs, protein }) => ({
         url: "/",
         method: "POST",
+        body: { name, food_id, quantity, calories, fat, carbs, protein },
+      }),
+      invalidatesTags: ["DailyFood"],
+    }),
+    deleteDailyFood: builder.mutation({
+      query: ({ food_id }) => ({
+        url: "/",
+        method: "DELETE",
         body: { food_id },
       }),
       invalidatesTags: ["DailyFood"],
