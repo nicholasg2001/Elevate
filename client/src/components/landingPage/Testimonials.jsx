@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Testimonial from "./Testimonial";
 import { FaLessThan, FaGreaterThan } from "react-icons/fa6";
-const Testimonials = () => {
+const Testimonials = ({ id }) => {
     const testimonials = [
         {
             content: "Joining Elevate Fitness has been one of the best decisions I've made for my health. The trainers are incredibly knowledgeable and supportive, guiding me through every step of my fitness journey. The sense of community here is unparalleled, with fellow members cheering each other on. Thanks to Elevate Fitness, I've achieved fitness goals I never thought possible.",
@@ -24,7 +24,7 @@ const Testimonials = () => {
     ];
     const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
     return (
-        <section className="bg-white rounded-xl">
+        <section className="bg-white rounded-xl" id={id}>
             <div className="container px-6 py-10 mx-auto">
                 <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl">
                     What Our Users Are Saying!
