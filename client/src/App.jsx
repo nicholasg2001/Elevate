@@ -10,6 +10,7 @@ import WorkoutPage from "./pages/WorkoutPage";
 import DetailedWorkoutPage from "./pages/DetailedWorkoutPage";
 import FoodPage from "./pages/FoodPage";
 import NutritionsPage from "./pages/NutritionsPage";
+import LeaderboardsPage from "./pages/LeaderboardsPage";
 const App = () => {
   return (
     <>
@@ -28,6 +29,7 @@ const App = () => {
           />
           <Route path="foods" element={<FoodPage />} />
           <Route path="nutritions/:foodID" element={<NutritionsPage />} />
+          <Route path="/auth/leaderboard" element={<LeaderboardsPage />} />
         </Route>
       </Routes>
     </>

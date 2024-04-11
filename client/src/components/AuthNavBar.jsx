@@ -77,9 +77,9 @@ const AuthNavBar = () => {
           </Navbar.Link>
         </Link>
 
-        <Link to="/auth/trainers">
+        <Link to="/auth/leaderboard">
           <Navbar.Link className="font-poppins text-white hover:text-black text-2xl md:hover:text-blue-800">
-            Trainers
+            Leaderboard
           </Navbar.Link>
         </Link>
       </Navbar.Collapse>
