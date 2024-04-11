@@ -21,6 +21,13 @@ export const userAPI = createApi({
   }),
   tagTypes: ["User"],
   endpoints: (builder) => ({
+    getAllUsers: builder.query({
+      query: () => ({
+        url: "/",
+        method: "GET",
+      }),
+      providesTags: ["User"],
+    }),
     updateUser: builder.mutation({
       query: ({ name, email, height, weight }) => ({
         url: "/",
@@ -56,4 +63,5 @@ export const {
   useUpdateUserMutation,
   useChangePasswordMutation,
   useChangeProfilePictureMutation,
+  useGetAllUsersQuery
 } = userAPI;
