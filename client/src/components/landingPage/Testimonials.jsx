@@ -1,10 +1,7 @@
-import {useEffect, useRef, useState} from "react";
-
-
-const Testimonials = ({id}) => {
-    const testimonialsRef = useRef(null);
-
-    // Testimonials data
+import { useState } from "react";
+import Testimonial from "./Testimonial";
+import { FaLessThan, FaGreaterThan } from "react-icons/fa6";
+const Testimonials = () => {
     const testimonials = [
         {
             content: "Joining Elevate Fitness has been one of the best decisions I've made for my health. The trainers are incredibly knowledgeable and supportive, guiding me through every step of my fitness journey. The sense of community here is unparalleled, with fellow members cheering each other on. Thanks to Elevate Fitness, I've achieved fitness goals I never thought possible.",
@@ -25,46 +22,11 @@ const Testimonials = ({id}) => {
             occupation: "User"
         }
     ];
-
-    // State to keep track of current testimonial index
     const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
-
-    // Function to render testimonial
-    const renderTestimonial = () => {
-        const testimonial = testimonials[currentTestimonialIndex];
-        return (
-            <div id={id}>
-                <p className="flex items-center text-center text-gray-500 lg:mx-8">{testimonial.content}</p>
-                <div className="flex flex-col items-center justify-center mt-8">
-                    <img className="object-cover rounded-full w-14 h-14" src={testimonial.imageSrc} alt="" />
-                    <div className="mt-4 text-center">
-                        <h1 className="font-semibold text-gray-800 dark:text-white">{testimonial.name}</h1>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">{testimonial.occupation}</span>
-                    </div>
-                </div>
-            </div>
-        );
-    };
-
-    // Event handler for navigating to the previous testimonial
-    const handlePrevTestimonial = () => {
-        setCurrentTestimonialIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
-    };
-
-    // Event handler for navigating to the next testimonial
-    const handleNextTestimonial = () => {
-        setCurrentTestimonialIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-    };
-
-    useEffect(() => {
-        // Automatically scroll to the testimonials section when component mounts
-        testimonialsRef.current.scrollIntoView({ behavior: 'smooth' });
-    }, []);
-
     return (
-        <section ref={testimonialsRef} className="bg-white dark:bg-gray-900">
+        <section className="bg-white rounded-xl">
             <div className="container px-6 py-10 mx-auto">
-                <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
+                <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl">
                     What Our Users Are Saying!
                 </h1>
 
@@ -75,20 +37,19 @@ const Testimonials = ({id}) => {
                 </div>
 
                 <div className="flex items-start max-w-6xl mx-auto mt-16">
-                    <button title="left arrow" onClick={handlePrevTestimonial} className="p-2 text-gray-800 transition-colors duration-300 border rounded-full dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 lg:block hover:bg-gray-100">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                        </svg>
+                    <button
+                        onClick={() => setCurrentTestimonialIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length)}
+                        className="testimonial-button">
+                        <FaLessThan />
                     </button>
 
-                    <div className="flex flex-col items-center justify-center mt-8">
-                        {renderTestimonial()}
+                    <div className="testimonial-content">
+                        <Testimonial testimonial={testimonials[currentTestimonialIndex]} />
                     </div>
 
-                    <button title="right arrow" onClick={handleNextTestimonial} className="p-2 text-gray-800 transition-colors duration-300 border rounded-full dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 lg:block hover:bg-gray-100">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
+                    <button onClick={() => setCurrentTestimonialIndex((prevIndex) => (prevIndex + 1) % testimonials.length)}
+                        className="testimonial-button">
+                        <FaGreaterThan />
                     </button>
                 </div>
             </div>
