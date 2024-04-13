@@ -17,6 +17,8 @@ export default {
         color7: "#A1AAFF",
         darkColor1: "#170E13",
         darkColor2: "#7A7ADB",
+        darkColor3: "#191714",
+        darkColor4: "#2234AE",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
