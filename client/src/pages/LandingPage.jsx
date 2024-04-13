@@ -5,7 +5,7 @@ import AboutUs from '../components/landingPage/AboutUs';
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-color7 to-color3">
+    <div className="min-h-screen bg-gradient-to-b from-color7 to-color3 dark:from-darkColor1 dark:to-darkColor2">
       <LandingNavBar />
       <div className="flex flex-col gap-24 justify-center items-center h-full">
         <LandingPageBox />
@@ -13,7 +13,6 @@ const LandingPage = () => {
           <Testimonials id="testimonials" />
           <AboutUs id="aboutus" />
         </div>
-
       </div>
     </div>
   );

@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
 import elevateLogo from "/src/assets/logo.png";
+import Toggle from "../Toggle";
 
 const LandingNavBar = () => {
   return (
-    <nav className="bg-color7 border-b border-gray-400 pt-12 pb-6">
+    <nav className="bg-color7 dark:bg-darkColor1 border-b border-gray-400 pt-12 pb-6">
       <div className="flex justify-between pl-12 pr-10 py-2">
         <Link
           to="/"
@@ -39,18 +40,21 @@ const LandingNavBar = () => {
             </ScrollLink>
           </li>
           <li>
-            <button className="text-xl text-white font-poppins bg-gradient-to-r from-blue-500 to-blue-700 overflow-hidden hover:from-blue-600 hover:to-blue-800 py-3 px-6 rounded-full transform transition-all duration-500 ease-in-out hover:brightness-110 hover:animate-pulse">
+            <button className="text-xl text-white font-poppins bg-gradient-to-r from-blue-500 to-blue-700 dark:from-purple-800 dark:to-purple-900 overflow-hidden hover:from-blue-600 hover:to-blue-800 py-3 px-6 rounded-full transform transition-all duration-500 ease-in-out hover:brightness-110 hover:animate-pulse">
               <Link to="/login" className="font-poppins text-white text-xl">
                 Login
               </Link>
             </button>
           </li>
           <li>
-            <button className="text-xl text-white font-poppins bg-gradient-to-r from-blue-500 to-blue-700 overflow-hidden hover:from-blue-600 hover:to-blue-800 py-3 px-6 rounded-full transform transition-all duration-500 ease-in-out hover:brightness-110 hover:animate-pulse">
+            <button className="text-xl text-white font-poppins bg-gradient-to-r from-blue-500 to-blue-700 dark:from-purple-800 dark:to-purple-900 overflow-hidden hover:from-blue-600 hover:to-blue-800 py-3 px-6 rounded-full transform transition-all duration-500 ease-in-out hover:brightness-110 hover:animate-pulse">
               <Link to="/signup" className="font-poppins text-white text-xl">
                 Sign up
               </Link>
             </button>
+          </li>
+          <li>
+            <Toggle/>
           </li>
         </ul>
       </div>
