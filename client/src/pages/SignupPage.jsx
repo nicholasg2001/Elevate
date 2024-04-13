@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import SignupForm from "../components/SignupForm";
 import loginModel from "/src/assets/loginmodel.png";
+import SignupForm from "../components/Auth/SignupForm";
 
 const SignupPage = () => {
   const [width, setWidth] = useState(window.innerWidth);

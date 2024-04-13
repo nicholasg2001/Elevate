@@ -1,8 +1,8 @@
 import { Dropdown, Navbar, Avatar } from "flowbite-react";
-import { useAppSelector } from "../redux/store";
-import { useAppDispatch } from "../redux/store";
+import { useAppSelector } from "../../redux/store";
+import { useAppDispatch } from "../../redux/store";
 import { RiAccountCircleFill } from "react-icons/ri";
-import { logout } from "../redux/feats/auth/authSlice";
+import { logout } from "../../redux/feats/auth/authSlice";
 import { Link } from "react-router-dom";
 import elevateLogo from "/src/assets/logo.png";
 const AuthNavBar = () => {

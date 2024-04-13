@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useAppDispatch } from "../redux/store";
+import { useAppDispatch } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../redux/feats/auth/authActions";
+import { registerUser } from "../../redux/feats/auth/authActions";
 import { useGoogleLogin } from "@react-oauth/google";
-import { googleSignIn } from "../redux/feats/auth/authActions";
+import { googleSignIn } from "../../redux/feats/auth/authActions";
 
 const SignupForm = () => {
   const [name, setName] = useState("");
