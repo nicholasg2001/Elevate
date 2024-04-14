@@ -9,11 +9,11 @@ const LeaderBoard = ({ users }) => {
         <Table.HeadCell>Height</Table.HeadCell>
         <Table.HeadCell>Weight</Table.HeadCell>
       </Table.Head>
-      <Table.Body className="divide-y shadow-xl">
+      <Table.Body className="divide-y shadow-xl dark:bg-slate-500">
         {users.map((user, index) => (
-          <Table.Row key={user.id} className="bg-white">
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900">{index + 1}</Table.Cell>
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900">
+          <Table.Row key={user.id} className="bg-white dark:bg-slate-800">
+            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-gray-400">{index + 1}</Table.Cell>
+            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-gray-400">
               <div className="flex items-center">
                 <img
                   alt=""

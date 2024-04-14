@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { loginUser } from "../redux/feats/auth/authActions";
+import { loginUser } from "../../redux/feats/auth/authActions";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../redux/store";
+import { useAppDispatch } from "../../redux/store";
 import { useGoogleLogin } from "@react-oauth/google";
-import { googleSignIn } from "../redux/feats/auth/authActions";
+import { googleSignIn } from "../../redux/feats/auth/authActions";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");

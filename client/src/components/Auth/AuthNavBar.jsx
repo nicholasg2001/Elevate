@@ -1,10 +1,11 @@
 import { Dropdown, Navbar, Avatar } from "flowbite-react";
-import { useAppSelector } from "../redux/store";
-import { useAppDispatch } from "../redux/store";
+import { useAppSelector } from "../../redux/store";
+import { useAppDispatch } from "../../redux/store";
 import { RiAccountCircleFill } from "react-icons/ri";
-import { logout } from "../redux/feats/auth/authSlice";
+import { logout } from "../../redux/feats/auth/authSlice";
 import { Link } from "react-router-dom";
 import elevateLogo from "/src/assets/logo.png";
+import Toggle from "../Toggle";
 const AuthNavBar = () => {
   const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
@@ -23,19 +24,18 @@ const AuthNavBar = () => {
         <Dropdown
           arrowIcon={false}
           inline
-          label={
-            <Avatar
-              alt="User settings"
-              img={user.profileurl}
-              rounded
-            />
-          }
+          label={<Avatar alt="User settings" img={user.profileurl} rounded />}
         >
-          <Dropdown.Header>
-            <span className="block text-sm">{user.name}</span>
-            <span className="block truncate text-sm font-medium">
-              {user.email}
-            </span>
+          <Dropdown.Header className="flex flex-col gap-2">
+            <div>
+              <span className="block text-sm">{user.name}</span>
+              <span className="block truncate text-sm font-medium">
+                {user.email}
+              </span>
+            </div>
+            <div className="flex justify-center">
+              <Toggle />
+            </div>
           </Dropdown.Header>
 
           <Link to={"/auth/dashboard"}>
@@ -78,7 +78,7 @@ const AuthNavBar = () => {
           </Navbar.Link>
         </Link>
       </Navbar.Collapse>
-    </Navbar >
+    </Navbar>
   );
 };
 

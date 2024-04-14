@@ -17,10 +17,10 @@ const FoodCard = ({ food, onClick }) => {
           alt=""
         />
       </div>
-      <div className="flex justify-center bg-white rounded-lg h-10 items-center">
+      <div className="flex justify-center dark:bg-slate-400 h-10 items-center">
         {food.name}
       </div>
-      <div className="bg-blue-300 p-4">
+      <div className="bg-blue-300  dark:bg-slate-400 p-4">
         <span className="flex justify-center">Calories: {food.calories}</span>
         <div className="flex flex-col">
           <div className="flex justify-evenly">
