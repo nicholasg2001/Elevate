@@ -55,7 +55,7 @@ const AddDailyWorkoutModal = ({ workout_id }) => {
       <Modal.Body>
         <div className="flex justify-center gap-4">
           <div>
-            <p className="font-poppins text-lg">Sets</p>
+            <p className="font-poppins text-lg dark:text-white">Sets</p>
             <input
               type="number"
               placeholder="Enter Sets"
@@ -65,7 +65,7 @@ const AddDailyWorkoutModal = ({ workout_id }) => {
             {isSetsError && <span className="text-xs text-red-500">Missing Values!</span>}
           </div>
           <div>
-            <p className="font-poppins text-lg">Reps</p>
+            <p className="font-poppins text-lg dark:text-white">Reps</p>
             <input
               type="number"
               placeholder="Enter Reps"

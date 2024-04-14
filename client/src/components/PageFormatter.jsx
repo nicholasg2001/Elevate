@@ -18,7 +18,6 @@ const PageFormatter = () => {
   return (
     <>
       <AuthNavBar />
-      <Toggle />
       <Outlet />
     </>
   );

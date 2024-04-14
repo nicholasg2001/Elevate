@@ -7,7 +7,7 @@ const Tab = (props) => {
       <li>
         <div
           className={`inline-flex items-center px-4 py-3 rounded-lg w-full border cursor-pointer ${
-            props.activeTab === "UserInfo" && "bg-blue-600 border-none text-white"
+            props.activeTab === "UserInfo" && "bg-blue-600 dark:bg-purple-400 border-none text-white"
             }`}
           onClick={() => props.getTab("UserInfo")}
         >
@@ -18,7 +18,7 @@ const Tab = (props) => {
       <li>
         <div
           className={`inline-flex items-center px-4 py-3 rounded-lg w-full border cursor-pointer ${
-            props.activeTab === "Password" && "bg-blue-600 border-none text-white"
+            props.activeTab === "Password" && "bg-blue-600 dark:bg-purple-400 border-none text-white"
             }`}
           onClick={() => props.getTab("Password")}
         >
@@ -29,7 +29,7 @@ const Tab = (props) => {
       <li>
         <div
           className={`inline-flex items-center px-4 py-3 rounded-lg w-full border cursor-pointer ${
-            props.activeTab === "Goals" && "bg-blue-600 border-none text-white"
+            props.activeTab === "Goals" && "bg-blue-600 dark:bg-purple-400 border-none text-white"
             }`}
           onClick={() => props.getTab("Goals")}
         >

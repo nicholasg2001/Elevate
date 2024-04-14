@@ -23,17 +23,14 @@ const FoodPage = () => {
       });
   };
   return (
-    <div className="mt-4">
+    <div className="dark:bg-slate-700">
       <form className="max-w-md mx-auto" onSubmit={formHandler}>
-        <label
-          htmlFor="default-search"
-          className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-        >
+        <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
           Search
         </label>
         <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <CiSearch size={20} />
+            <CiSearch size={20} className="dark:text-white"/>
           </div>
           <input
             type="search"

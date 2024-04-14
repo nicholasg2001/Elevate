@@ -81,7 +81,7 @@ const FoodModal = ({ foodID, measures, name }) => {
       <Modal.Body>
         <div className="flex gap-12 justify-evenly">
           <div>
-            <label className="text-xl">Measurements</label>
+            <label className="text-xl dark:text-white">Measurements</label>
             <Dropdown label={foodObject.label}>
               {measures.map((measure) => (
                 <Dropdown.Item
