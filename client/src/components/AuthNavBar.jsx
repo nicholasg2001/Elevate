@@ -1,7 +1,6 @@
 import { Dropdown, Navbar, Avatar } from "flowbite-react";
 import { useAppSelector } from "../redux/store";
 import { useAppDispatch } from "../redux/store";
-import { RiAccountCircleFill } from "react-icons/ri";
 import { logout } from "../redux/feats/auth/authSlice";
 import { Link } from "react-router-dom";
 import elevateLogo from "/src/assets/logo.png";
@@ -61,20 +60,26 @@ const AuthNavBar = () => {
       </div>
       <Navbar.Collapse>
         <Link to="/auth/exercises">
-          <Navbar.Link className="font-poppins text-white hover:text-black text-2xl md:hover:text-blue-800">
+          <Navbar.Link className="font-poppins text-white hover:text-black text-2xl md:hover:text-blue-800 px-1">
             Exercises
           </Navbar.Link>
         </Link>
 
         <Link to="/auth/foods">
-          <Navbar.Link className="font-poppins text-white hover:text-black text-2xl md:hover:text-blue-800">
+          <Navbar.Link className="font-poppins text-white hover:text-black text-2xl md:hover:text-blue-800 px-1">
             Foods
           </Navbar.Link>
         </Link>
 
         <Link to="/auth/leaderboard">
-          <Navbar.Link className="font-poppins text-white hover:text-black text-2xl md:hover:text-blue-800">
+          <Navbar.Link className="font-poppins text-white hover:text-black text-2xl md:hover:text-blue-800 px-1">
             Leaderboard
+          </Navbar.Link>
+        </Link>
+
+        <Link to="/auth/maps">
+          <Navbar.Link className="font-poppins text-white hover:text-black text-2xl md:hover:text-blue-800 px-1">
+            Find A Gym
           </Navbar.Link>
         </Link>
       </Navbar.Collapse>
