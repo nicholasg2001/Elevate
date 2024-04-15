@@ -38,7 +38,7 @@ const DailyFoodQuantity = () => {
           onClick={decrementQuantity}
           className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
         >
-          <FaMinus size={16} />
+          <FaMinus size={16} className="dark:text-white"/>
         </button>
         <input
           type="text"
@@ -47,7 +47,7 @@ const DailyFoodQuantity = () => {
           onChange={handleChange}
         />
         <div className="absolute bottom-1 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 flex items-center text-xs text-gray-400 space-x-1 rtl:space-x-reverse">
-          <IoFastFoodOutline size={16} />
+          <IoFastFoodOutline size={16} className="dark:text-gray-400"/>
           <span>Amount</span>
         </div>
         <button
@@ -55,7 +55,7 @@ const DailyFoodQuantity = () => {
           onClick={incrementQuantity}
           className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
         >
-          <FaPlus size={16} />
+          <FaPlus size={16} className="dark:text-white"/>
         </button>
       </div>
       <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">

@@ -1,7 +1,8 @@
 import { Outlet } from "react-router-dom";
 import { useAppSelector } from "../redux/store";
 import { NavLink } from "react-router-dom";
-import AuthNavBar from "./AuthNavBar";
+import AuthNavBar from "./Auth/AuthNavBar";
+import Toggle from "./Toggle";
 const PageFormatter = () => {
   const { user } = useAppSelector((state) => state.auth);
   if (user == null) {

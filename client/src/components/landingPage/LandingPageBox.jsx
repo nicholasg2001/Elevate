@@ -39,7 +39,7 @@ const LandingPageBox = () => {
           <h1>{texts[textIndex]}</h1>
         </motion.div>
         <div>
-          <button className="mt-5 text-xl text-white font-poppins bg-gradient-to-r from-blue-500 to-blue-700 overflow-hidden hover:from-blue-600 hover:to-blue-800 py-3 px-6 rounded-full transform transition-all duration-500 ease-in-out hover:brightness-110 hover:animate-pulse">
+          <button className="mt-5 text-xl text-white font-poppins bg-gradient-to-r from-blue-500 to-blue-700 dark:from-purple-400 dark:to-purple-700 overflow-hidden hover:from-blue-600 hover:to-blue-800 py-3 px-6 rounded-full transform transition-all duration-500 ease-in-out hover:brightness-110 hover:animate-pulse">
             <Link to="/signup" className="font-poppins text-white text-xl">
               Get Started
             </Link>

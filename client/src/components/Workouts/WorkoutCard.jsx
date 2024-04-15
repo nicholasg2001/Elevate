@@ -12,30 +12,30 @@ const WorkoutCard = ({ workout, img, onClick }) => {
 
   return (
     <div
-      className="w-full bg-blue-300 border border-gray-300 rounded-lg shadow-xl"
+      className="w-full bg-blue-300 dark:bg-slate-800 border border-gray-300 rounded-lg shadow-xl"
       onClick={onClick}
     >
-      <div className="flex justify-center bg-white">
+      <div className="flex justify-center bg-white dark:bg-slate-400">
         <img className="rounded-t-lg h-44" src={img} alt="" />
       </div>
       <div className="p-5 rounded-b-lg">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {workout.name}
         </h5>
         <p className="mb-3 font-normal text-gray-900">
-          <span className="text-black font-bold">Muscle:</span>{" "}
-          <span className="font-semibold">{workout.muscle}</span>
+          <span className="text-black font-bold dark:text-white">Muscle:</span>{" "}
+          <span className="font-semibold dark:text-white">{workout.muscle}</span>
         </p>
         <div className="flex">
           <div className="flex flex-col">
-            <span className="font-bold">Difficulty:</span>
+            <span className="font-bold dark:text-white">Difficulty:</span>
             <span className={`font-semibold ${difficultyColor}`}>
               {workout.difficulty}
             </span>
           </div>
-          <div className="flex flex-col mb-3 ml-auto px-10 font-normal text-gray-900 ">
-            <span className="text-black font-bold">Type:</span>
-            <span className="font-semibold">{workout.type}</span>
+          <div className="flex flex-col mb-3 ml-auto px-10 font-normal text-gray-900 dark:text-white">
+            <span className="text-black font-bold dark:text-white">Type:</span>
+            <span className="font-semibold dark:text-white">{workout.type}</span>
           </div>
         </div>
         <div className="flex justify-between">

@@ -39,7 +39,7 @@ const GoogleSignInModal = () => {
       <Modal.Body>
         <div className="flex justify-center gap-4">
           <div>
-            <p className="font-poppins text-lg">Height</p>
+            <p className="font-poppins text-lg dark:text-white">Height</p>
             <input
               ref={height}
               type="text"
@@ -48,7 +48,7 @@ const GoogleSignInModal = () => {
             />
           </div>
           <div>
-            <p className="font-poppins text-lg">Weight</p>
+            <p className="font-poppins text-lg dark:text-white">Weight</p>
             <input
               ref={weight}
               type="number"
@@ -58,7 +58,7 @@ const GoogleSignInModal = () => {
           </div>
         </div>
       </Modal.Body>
-      <div className=" flex justify-center mb-10">
+      <div className="flex justify-center mb-10">
         <button
           className="flex w-1/3 items-center justify-center px-5 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-30"
           onClick={onInitialSetup}
