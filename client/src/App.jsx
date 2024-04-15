@@ -11,6 +11,8 @@ import DetailedWorkoutPage from "./pages/DetailedWorkoutPage";
 import FoodPage from "./pages/FoodPage";
 import NutritionsPage from "./pages/NutritionsPage";
 import LeaderboardsPage from "./pages/LeaderboardsPage";
+import MapsPage from "./pages/MapsPage";
+
 const App = () => {
   return (
     <>
@@ -23,13 +25,11 @@ const App = () => {
           <Route path="main" element={<MainPage />} />
           <Route path="setting" element={<SettingPage />} />
           <Route path="exercises" element={<WorkoutPage />} />
-          <Route
-            path="detailedWorkout/:name"
-            element={<DetailedWorkoutPage />}
-          />
+          <Route path="detailedWorkout/:name" element={<DetailedWorkoutPage />}/>
           <Route path="foods" element={<FoodPage />} />
           <Route path="nutritions/:foodID" element={<NutritionsPage />} />
           <Route path="/auth/leaderboard" element={<LeaderboardsPage />} />
+          <Route path="maps" element={<MapsPage />} />
         </Route>
       </Routes>
     </>
