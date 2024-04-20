@@ -20,7 +20,8 @@ const authenticateToken = (req, res, next) => {
 
 const registerUser = async (req, res) => {
   const { name, email, password, height, weight } = req.body;
-
+  const currDate = new Date();
+  const newStreak = 1;
   if (!name || !email || !password || !height || !weight) {
     return res.status(400).json({ error: "Missing Fields." });
   }
@@ -38,8 +39,8 @@ const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = await db.one(
-      "INSERT INTO users(name, email, password, height, weight, google_account) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
-      [name, email, hashedPassword, height, weight, false]
+      "INSERT INTO users(name, email, password, height, weight, google_account, lastlogged, current_days) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      [name, email, hashedPassword, height, weight, false, currDate, newStreak]
     );
 
     const accessToken = jwt.sign(
@@ -58,26 +59,53 @@ const loginUser = async (req, res) => {
     return res.status(400).json({ error: "Email and password are required." });
   }
 
-  const user = await db.oneOrNone("SELECT * FROM users WHERE email = $1", [
-    email,
-  ]);
-  if (!user) {
-    return res.status(400).json({ error: "Email not found." });
+  try {
+    const user = await db.oneOrNone("SELECT * FROM users WHERE email = $1", [email]);
+    if (!user) {
+      return res.status(400).json({ error: "Email not found." });
+    }
+
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return res.status(400).json({ error: "Incorrect password." });
+    }
+
+
+    let lastDate = await db.one("SELECT lastlogged FROM users WHERE user_id = $1", [user.user_id]);
+    let streak = await db.one("SELECT current_days FROM users WHERE user_id = $1", [user.user_id]);
+    streak = parseInt(streak.current_days);
+    
+    const lastLoggedDate = new Date(lastDate.lastlogged);
+    const currentDate = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(currentDate.getDate() - 1);
+    
+
+    if (lastLoggedDate.getDate() === currentDate.getDate()) {
+      streak = streak;
+    } else if (lastLoggedDate.getDate() === yesterday.getDate()){
+      streak += 1;
+    } else {
+      streak = 1;
+    }
+
+    const updatedUser = await db.one(
+      "UPDATE users SET lastlogged = $1, current_days = $2 WHERE user_id = $3 RETURNING *",
+      [currentDate, streak, user.user_id]
+    );
+
+    const accessToken = jwt.sign(
+      { data: updatedUser },
+      `${process.env.ACCESS_TOKEN_SECRET}`
+    );
+
+    res.status(200).json({ token: accessToken, user: updatedUser });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ error: "Internal server error." });
   }
-
-  const match = await bcrypt.compare(password, user.password);
-
-  if (!match) {
-    return res.status(400).json({ error: "Incorrect password." });
-  }
-
-  const accessToken = jwt.sign(
-    { data: user },
-    `${process.env.ACCESS_TOKEN_SECRET}`
-  );
-
-  res.status(200).json({ token: accessToken, user: user });
 };
+
 
 const googleSignIn = async (req, res) => {
   try {
@@ -87,6 +115,8 @@ const googleSignIn = async (req, res) => {
       "postmessage"
     );
     const { tokens } = await oAuth2Client.getToken(req.body.code);
+    const newUserDate = new Date();
+    const newUserStreak = 1;
     const decodedToken = jwt.decode(tokens.id_token);
     const { email, name } = decodedToken;
     const existingUser = await db.oneOrNone(
@@ -94,19 +124,42 @@ const googleSignIn = async (req, res) => {
       [email]
     );
     if (existingUser) {
+      const currentDate = new Date();
+      let lastDate = await db.one("SELECT lastlogged FROM users WHERE user_id = $1", [existingUser.user_id]);
+      let currentDays = await db.one("SELECT current_days FROM users WHERE user_id = $1", [existingUser.user_id]);
+      currentDays = parseInt(currentDays.current_days);
+
+      const lastLoggedDate = new Date(lastDate.lastlogged);
+      const yesterday = new Date();
+      yesterday.setDate(currentDate.getDate() - 1);
+
+      if (lastLoggedDate.getDate() === currentDate.getDate()) {
+        currentDays = currentDays; // do nothing
+      } else if (lastLoggedDate.getDate() === yesterday.getDate()) {
+        currentDays += 1;
+      } else {
+        currentDays = 1;
+      }
+
+      const updatedUser = await db.one(
+        "UPDATE users SET lastlogged = $1, current_days = $2 WHERE user_id = $3 RETURNING *",
+        [currentDate, currentDays, existingUser.user_id]
+      );
+
       const accessToken = jwt.sign(
-        { data: existingUser },
+        { data: updatedUser },
         process.env.ACCESS_TOKEN_SECRET
       );
-      return res.status(200).json({ token: accessToken, user: existingUser });
+
+      return res.status(200).json({ token: accessToken, user: updatedUser });
     } else {
       const newUser = await db.one(
-        "INSERT INTO users(name, email, google_account) VALUES($1, $2, $3) RETURNING *",
-        [name, email, true]
+        "INSERT INTO users(name, email, google_account, lastlogged, current_days) VALUES($1, $2, $3, $4, $5) RETURNING *",
+        [name, email, true, newUserDate, newUserStreak]
       );
       const accessToken = jwt.sign(
         { data: newUser },
-        `${process.env.ACCESS_TOKEN_SECRET}`
+        process.env.ACCESS_TOKEN_SECRET
       );
       res.status(201).json({ token: accessToken, user: newUser });
     }
@@ -115,6 +168,7 @@ const googleSignIn = async (req, res) => {
     return res.status(500).json({ error: "Unable to process Google Sign-In." });
   }
 };
+
 
 module.exports = {
   authenticateToken,
