@@ -25,5 +25,15 @@ export default {
       },
     },
   },
-  plugins: [require("flowbite/plugin")],
+  plugins: [
+    require("flowbite/plugin"),
+    function ({ addUtilities }) {
+      const newUtilities = {
+        ".clip-rhombus": {
+          clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
+        },
+      };
+      addUtilities(newUtilities);
+    },
+  ],
 };
