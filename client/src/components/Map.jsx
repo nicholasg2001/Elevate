@@ -62,7 +62,6 @@ const GymMap = () => {
 
   useEffect(() => {
     if (autocomplete) {
-      // Add event listener for place changed event to update location state
       autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace();
         if (!place.geometry || !place.geometry.location) {

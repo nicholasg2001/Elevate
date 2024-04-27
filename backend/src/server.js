@@ -7,6 +7,7 @@ const authRoute = require("./routes/authRoute.js");
 const externalApiRoute = require("./routes/externalApiRoute.js");
 const dailyWorkoutsRoute = require("./routes/dailyWorkoutsRoute.js");
 const workoutsRoute = require("./routes/workoutsRoute.js");
+const favoriteWorkoutsRoute = require('./routes/favoriteWorkoutsRoute.js');
 const dailyFoodsRoute = require("./routes/dailyFoodsRoute.js");
 const videosRoute = require("./routes/videoRoute.js")
 const cloudinary = require("cloudinary").v2;
@@ -28,6 +29,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/external", externalApiRoute);
 app.use("/api/dailyWorkouts", dailyWorkoutsRoute);
 app.use("/api/dailyFoods", dailyFoodsRoute);
+app.use('/api/favoriteWorkouts', favoriteWorkoutsRoute)
 app.use("/api/workouts", workoutsRoute);
 app.use("/api/videos", videosRoute)
 
