@@ -4,6 +4,7 @@ import Tab from "../components/Settings/Tab";
 import UserInfoTab from "../components/Settings/UserInfoTab";
 import PasswordTab from "../components/Settings/PasswordTab";
 import GoalsTab from "../components/Settings/GoalsTab";
+import FavoritedWorkoutsTab from "../components/Settings/FavoritedWorkoutsTab";
 import CalculatorTab from "../components/Settings/CalculatorTab";
 
 const SettingPage = () => {
@@ -18,6 +19,7 @@ const SettingPage = () => {
         <Tab getTab={tabHandler} activeTab={currentTab} />
         {currentTab === "UserInfo" && <UserInfoTab />}
         {currentTab === "Password" && <PasswordTab />}
+        {currentTab === "Favorites" && <FavoritedWorkoutsTab />}
         {currentTab === "Goals" && <GoalsTab />}
         {currentTab === "Calculator" && <CalculatorTab />}
       </div>

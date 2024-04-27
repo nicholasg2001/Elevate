@@ -1,14 +1,52 @@
 import { Link } from "react-router-dom";
 import { openWorkoutModal } from "../../redux/feats/global/globalSlice";
 import { useAppDispatch } from "../../redux/store";
+import {Rating} from "flowbite-react";
+import { useState, useEffect } from "react"
+import {
+        useGetAllFavoriteWorkoutsQuery,
+        useAddFavoriteWorkoutsMutation,
+        useDeleteFavoriteWorkoutsMutation
+} from '../../redux/services/FavoriteWorkoutsService';
 const WorkoutCard = ({ workout, img, onClick }) => {
   const dispatch = useAppDispatch();
+  const { data, isLoading } = useGetAllFavoriteWorkoutsQuery('favoriteWorkouts');
+  const [addFavoriteWorkouts] = useAddFavoriteWorkoutsMutation();
+  const [removeFavoriteWorkouts] = useDeleteFavoriteWorkoutsMutation();
   const difficultyColorHash = {
     beginner: "text-green-700",
     intermediate: "text-yellow-200",
     expert: "text-red-500",
   };
+
+  const [isSelected,setIsSelected]= useState(false);
   const difficultyColor = difficultyColorHash[workout.difficulty] || "";
+
+  useEffect(() => {
+    if (data && !isLoading) {
+      const favoritedWorkouts = data.map((workout) => workout.name);
+      if (favoritedWorkouts.includes(workout.name)) {
+        setIsSelected(true);
+      }
+    }
+  },[data,isLoading])
+
+  const onStarClick = async () => {
+    setIsSelected((state) => !state);
+    if (!isSelected) { // ADD Workout
+      try {
+        await addFavoriteWorkouts({ workout_id : workout.workout_id});
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      try {
+        await removeFavoriteWorkouts({ workout_id : workout.workout_id});
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
 
   return (
     <div
@@ -19,9 +57,14 @@ const WorkoutCard = ({ workout, img, onClick }) => {
         <img className="rounded-t-lg w-full h-full" src={img} alt="" />
       </div>
       <div className="p-5 rounded-b-lg">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          {workout.name}
-        </h5>
+        <div className="flex gap-2 justify-between items-center">
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            {workout.name}
+          </h5>
+          <Rating size="md">
+            <Rating.Star filled={isSelected}  onClick = {onStarClick} />
+          </Rating>
+        </div>
         <p className="mb-3 font-normal text-gray-900">
           <span className="text-black font-bold dark:text-white">Muscle:</span>{" "}
           <span className="font-semibold dark:text-white">{workout.muscle}</span>
