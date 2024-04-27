@@ -54,7 +54,7 @@ const WorkoutCard = ({ workout, img, onClick }) => {
       onClick={onClick}
     >
       <div className="flex justify-center bg-white dark:bg-slate-400">
-        <img className="rounded-t-lg h-44" src={img} alt="" />
+        <img className="rounded-t-lg w-full h-full" src={img} alt="" />
       </div>
       <div className="p-5 rounded-b-lg">
         <div className="flex gap-2 justify-between items-center">

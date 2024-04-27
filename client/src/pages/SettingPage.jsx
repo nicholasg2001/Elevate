@@ -5,6 +5,7 @@ import UserInfoTab from "../components/Settings/UserInfoTab";
 import PasswordTab from "../components/Settings/PasswordTab";
 import GoalsTab from "../components/Settings/GoalsTab";
 import FavoritedWorkoutsTab from "../components/Settings/FavoritedWorkoutsTab";
+import CalculatorTab from "../components/Settings/CalculatorTab";
 
 const SettingPage = () => {
   const [currentTab, setCurrentTab] = useState("UserInfo");
@@ -20,6 +21,7 @@ const SettingPage = () => {
         {currentTab === "Password" && <PasswordTab />}
         {currentTab === "Favorites" && <FavoritedWorkoutsTab />}
         {currentTab === "Goals" && <GoalsTab />}
+        {currentTab === "Calculator" && <CalculatorTab />}
       </div>
       <CustomToasts className="mx-auto" />
     </div>
