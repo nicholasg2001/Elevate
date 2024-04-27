@@ -1,9 +1,8 @@
-import React from "react";
-
+import { IoMdClock } from "react-icons/io";
 const LoginBadge = ({ level }) => {
   const badgeColorClass =
     level === "bronze"
-      ? "bg-yellow-950"
+      ? "bg-yellow-900"
       : level === "silver"
       ? "bg-gray-300"
       : level === "gold"
@@ -19,21 +18,15 @@ const LoginBadge = ({ level }) => {
       ? 30
       : 0;
 
-  const textColorClass =
-    badgeColorClass === "bg-gray-200" ? "text-gray-600" : "text-white";
-
   return (
     <div className="flex justify-center items-center mx-auto my-8">
       <div
         className={`clip-rhombus ${badgeColorClass} w-32 h-32 flex justify-center items-center relative`}
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-          <span className="inline-block text-xl">👟</span>
-          <span className={`${textColorClass} block text-xs`}>{days} days</span>
-          <span className={`text-gray-500 block text-xs ${textColorClass}`}>
-            Daily Logins
-          </span>
-          <span className="inline-block text-xl">⚡</span>
+        <div className="flex flex-col items-center">
+          <IoMdClock size={35} color="white" />
+          <span className="text-white">Daily Login</span>
+          <div className="text-white">{days}</div>
         </div>
       </div>
     </div>
