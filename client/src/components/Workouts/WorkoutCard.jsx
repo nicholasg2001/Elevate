@@ -33,7 +33,7 @@ const WorkoutCard = ({ workout, img, onClick }) => {
 
   const onStarClick = async () => {
     setIsSelected((state) => !state);
-    if (!isSelected) { // ADD Workout
+    if (!isSelected) {
       try {
         await addFavoriteWorkouts({ workout_id : workout.workout_id});
       } catch (err) {
