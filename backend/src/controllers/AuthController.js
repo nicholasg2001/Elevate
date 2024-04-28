@@ -103,65 +103,39 @@ const googleSignIn = async (req, res) => {
       "postmessage"
     );
     const { tokens } = await oAuth2Client.getToken(req.body.code);
-    const newUserDate = new Date();
-    const newUserStreak = 1;
     const decodedToken = jwt.decode(tokens.id_token);
     const { email, name } = decodedToken;
-    const existingUser = await db.oneOrNone(
-      "SELECT * FROM users WHERE email = $1",
-      [email]
-    );
-    if (existingUser) {
-      const currentDate = new Date();
-      let lastDate = await db.one(
-        "SELECT lastlogged FROM users WHERE user_id = $1",
-        [existingUser.user_id]
-      );
-      let currentDays = await db.one(
-        "SELECT current_days FROM users WHERE user_id = $1",
-        [existingUser.user_id]
-      );
-      currentDays = parseInt(currentDays.current_days);
 
-      const lastLoggedDate = new Date(lastDate.lastlogged);
-      const yesterday = new Date();
-      yesterday.setDate(currentDate.getDate() - 1);
+    const user = await db.oneOrNone("SELECT * FROM users WHERE email = $1", [email]);
 
-      if (lastLoggedDate.getDate() === currentDate.getDate()) {
-        currentDays = currentDays; // do nothing
-      } else if (lastLoggedDate.getDate() === yesterday.getDate()) {
-        currentDays += 1;
+    await db.tx(async (t) => {
+      let updatedUser;
+      if (user) {
+        const streak = calculateLoginStreak(user);
+        updatedUser = await t.one(
+          "UPDATE users SET lastlogged = $1, current_days = $2 WHERE user_id = $3 RETURNING *",
+          [new Date(), streak, user.user_id]
+        );
       } else {
-        currentDays = 1;
+        updatedUser = await t.one(
+          "INSERT INTO users(name, email, google_account, lastlogged, current_days) VALUES($1, $2, $3, $4, $5) RETURNING *",
+          [name, email, true, new Date(), 1]
+        );
       }
-
-      const updatedUser = await db.one(
-        "UPDATE users SET lastlogged = $1, current_days = $2 WHERE user_id = $3 RETURNING *",
-        [currentDate, currentDays, existingUser.user_id]
-      );
+      await updateLoginAchievements(updatedUser, t);
 
       const accessToken = jwt.sign(
         { data: updatedUser },
         process.env.ACCESS_TOKEN_SECRET
       );
-
-      return res.status(200).json({ token: accessToken, user: updatedUser });
-    } else {
-      const newUser = await db.one(
-        "INSERT INTO users(name, email, google_account, lastlogged, current_days) VALUES($1, $2, $3, $4, $5) RETURNING *",
-        [name, email, true, newUserDate, newUserStreak]
-      );
-      const accessToken = jwt.sign(
-        { data: newUser },
-        process.env.ACCESS_TOKEN_SECRET
-      );
-      res.status(201).json({ token: accessToken, user: newUser });
-    }
+      res.status(user ? 200 : 201).json({ token: accessToken, user: updatedUser });
+    });
   } catch (error) {
     console.error("Google Sign-In error:", error);
-    return res.status(500).json({ error: "Unable to process Google Sign-In." });
+    res.status(500).json({ error: "Unable to process Google Sign-In." });
   }
 };
+
 
 module.exports = {
   authenticateToken,
