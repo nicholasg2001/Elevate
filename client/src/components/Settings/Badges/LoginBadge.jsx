@@ -1,35 +1,37 @@
-import { IoMdClock } from "react-icons/io";
-const LoginBadge = ({ level }) => {
-  const badgeColorClass =
-    level === "bronze"
-      ? "bg-yellow-900"
-      : level === "silver"
-      ? "bg-gray-300"
-      : level === "gold"
-      ? "bg-yellow-300"
-      : "bg-gray-200";
+import { BsFire } from "react-icons/bs";
+import { Tooltip, Rating } from "flowbite-react";
+import LoginToolTip from "../ToolTip/LoginToolTip";
 
+const LoginBadge = ({ level, achieved }) => {
   const days =
-    level === "bronze"
-      ? 7
-      : level === "silver"
-      ? 14
-      : level === "gold"
-      ? 30
-      : 0;
+    level === 1 ? 7 :
+      level === 2 ? 14 :
+        level === 3 ? 30 : 0;
+
+  const badgeColor = achieved ? "bg-blue-300" : "bg-gray-300";
+  const textColor = achieved ? "text-white" : "text-gray-700";
+  const iconColor = achieved ? "red" : "gray";
+
+  const renderStars = () => {
+    let stars = [];
+    for (let i = 1; i <= level; i++) {
+      stars.push(<Rating.Star key={i} />);
+    }
+    return stars;
+  };
 
   return (
-    <div className="flex justify-center items-center mx-auto my-8">
-      <div
-        className={`clip-rhombus ${badgeColorClass} w-32 h-32 flex justify-center items-center relative`}
-      >
+    <Tooltip content={<LoginToolTip requirement={days} />}>
+      <div className={`clip-rhombus ${badgeColor} w-32 h-32 flex justify-center items-center relative`}>
         <div className="flex flex-col items-center">
-          <IoMdClock size={35} color="white" />
-          <span className="text-white">Daily Login</span>
-          <div className="text-white">{days}</div>
+          <BsFire size={35} color={iconColor} />
+          <span className={`${textColor} font-semibold`}>Daily Login</span>
+          <Rating>
+            {renderStars()}
+          </Rating>
         </div>
       </div>
-    </div>
+    </Tooltip>
   );
 };
 
