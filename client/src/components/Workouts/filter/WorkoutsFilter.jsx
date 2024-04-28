@@ -58,7 +58,6 @@ const WorkoutsFilter = () => {
 
   return (
     <div className="hidden absolute right-0 lg:flex flex-col gap-3 items-center justify-center p-4">
-      {/* WIP WIP hidden on mobile screen, fix this */}
       <button
         className="bg-blue-400 dark:bg-purple-300 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
         onClick={() => setOpenDropDown((prevOpenDropDown) => !prevOpenDropDown)}
@@ -67,10 +66,7 @@ const WorkoutsFilter = () => {
         <IoMdArrowDropdown size={20} />
       </button>
       {openDropDown && (
-        <div
-          id="dropdown"
-          className="z-10 w-56 p-3 bg-gray-100 rounded-lg shadow dark:bg-gray-700"
-        >
+        <div className="z-10 w-56 p-3 bg-gray-100 rounded-lg shadow dark:bg-gray-700">
           <div>
             <div
               className="flex cursor-pointer"
