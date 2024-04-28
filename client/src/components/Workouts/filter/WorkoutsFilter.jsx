@@ -1,60 +1,50 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useGetAllWorkoutsQuery } from "../../../redux/services/WorkoutService";
 import MuscleFilter from "./MuscleFilter";
 import TypeFilter from "./TypeFilter";
 import DifficultyFilter from "./DifficultyFilter";
-const WorkoutsFilter = () => {
+const WorkoutsFilter = ({ setMuscleFilter, setTypeFilter, setDifficultyFilter }) => {
   const { data, isLoading } = useGetAllWorkoutsQuery("Workouts");
+
   const [openDropDown, setOpenDropDown] = useState(false);
-  const [isDifficulty, setIsDifficulty] = useState(false);
-  const [isType, setIsType] = useState(false);
   const [isMuscle, setIsMuscle] = useState(false);
+  const [isType, setIsType] = useState(false);
+  const [isDifficulty, setIsDifficulty] = useState(false);
 
-  const [muscleCount, setMuscleCount] = useState({});
-  const [typeCount, setTypeCount] = useState({});
-  const [difficultyCount, setDifficultyCount] = useState({});
+  const [muscleSelections, setMuscleSelections] = useState({});
+  const [muscleCounts, setMuscleCounts] = useState({});
 
-  useMemo(() => {
+  const [typeSelections, setTypeSelections] = useState({});
+  const [typeCounts, setTypeCounts] = useState({});
+
+  const [difficultySelections, setDifficultySelections] = useState({});
+  const [difficultyCounts, setDifficultyCounts] = useState({});
+
+  useEffect(() => {
     if (data && !isLoading) {
-      setMuscleCount({
-        abdominals: data.filter((workout) => workout.muscle === "abdominals").length,
-        Abductors: data.filter((workout) => workout.muscle === "abductors").length,
-        adductors: data.filter((workout) => workout.muscle === "adductors").length,
-        biceps: data.filter((workout) => workout.muscle === "biceps").length,
-        calves: data.filter((workout) => workout.muscle === "calves").length,
-        chest: data.filter((workout) => workout.muscle === "chest").length,
-        forearms: data.filter((workout) => workout.muscle === "forearms").length,
-        glutes: data.filter((workout) => workout.muscle === "glutes").length,
-        hamstrings: data.filter((workout) => workout.muscle === "hamstrings").length,
-        lats: data.filter((workout) => workout.muscle === "lats").length,
-        lowerBack: data.filter((workout) => workout.muscle === "lower_back").length,
-        middleBack: data.filter((workout) => workout.muscle === "middle_back").length,
-        neck: data.filter((workout) => workout.muscle === "neck").length,
-        quadriceps: data.filter((workout) => workout.muscle === "quadriceps").length,
-        traps: data.filter((workout) => workout.muscle === "traps").length,
-        triceps: data.filter((workout) => workout.muscle === "triceps").length,
-      });
+      const muscleCounts = data.reduce((acc, workout) => {
+        acc[workout.muscle] = (acc[workout.muscle] || 0) + 1;
+        return acc;
+      }, {});
+      const typeCounts = data.reduce((acc, workout) => {
+        acc[workout.type] = (acc[workout.type] || 0) + 1;
+        return acc;
+      }, {});
+      const difficultyCounts = data.reduce((acc, workout) => {
+        acc[workout.difficulty] = (acc[workout.difficulty] || 0) + 1;
+        return acc;
+      }, {});
 
-      setTypeCount({
-        cardio: data.filter((workout) => workout.type === "cardio").length,
-        olympicWeightlifting: data.filter((workout) => workout.type === "olympic_weightlifting").length,
-        plyometrics: data.filter((workout) => workout.type === "plyometrics").length,
-        powerLifting: data.filter((workout) => workout.type === "powerlifting").length,
-        strength: data.filter((workout) => workout.type === "strength").length,
-        stretching: data.filter((workout) => workout.type === "stretching").length,
-        strongMan: data.filter((workout) => workout.type === "strongman").length,
-      })
+      setMuscleCounts(muscleCounts);
+      setTypeCounts(typeCounts);
+      setDifficultyCounts(difficultyCounts);
 
-      setDifficultyCount({
-        beginner: data.filter((workout) => workout.difficulty === "beginner").length,
-        intermediate: data.filter((workout) => workout.difficulty === "intermediate").length,
-        expert: data.filter((workout) => workout.difficulty === "expert").length,
-      });
-
+      setMuscleFilter(Object.keys(muscleCounts).filter(muscle => muscleSelections[muscle]));
+      setTypeFilter(Object.keys(typeCounts).filter(type => typeSelections[type]));
+      setDifficultyFilter(Object.keys(difficultyCounts).filter(difficulty => difficultySelections[difficulty]));
     }
-  }, [data]);
-
+  }, [data, isLoading, muscleSelections, typeSelections, difficultySelections, setMuscleFilter, setTypeFilter, setDifficultyFilter]);
 
   return (
     <div className="hidden absolute right-0 lg:flex flex-col gap-3 items-center justify-center p-4">
@@ -77,7 +67,7 @@ const WorkoutsFilter = () => {
               </button>
               <IoMdArrowDropdown size={20} />
             </div>
-            {isMuscle && <MuscleFilter amt={muscleCount} />}
+            {isMuscle && <MuscleFilter amt={muscleCounts} setMuscleSelections={setMuscleSelections} muscleSelections={muscleSelections} />}
           </div>
 
           <div>
@@ -91,7 +81,7 @@ const WorkoutsFilter = () => {
               <IoMdArrowDropdown size={20} />
             </div>
 
-            {isType && <TypeFilter amt={typeCount} />}
+            {isType && <TypeFilter amt={typeCounts} setTypeSelections={setTypeSelections} typeSelections={typeSelections} />}
           </div>
 
           <div>
@@ -105,7 +95,7 @@ const WorkoutsFilter = () => {
               <IoMdArrowDropdown size={20} />
             </div>
 
-            {isDifficulty && <DifficultyFilter amt={difficultyCount} />}
+            {isDifficulty && <DifficultyFilter amt={difficultyCounts} setDifficultySelections={setDifficultySelections} difficultySelections={difficultySelections} />}
           </div>
         </div>
       )}
