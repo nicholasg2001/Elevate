@@ -15,7 +15,7 @@ const FavoritedWorkoutsTab = () => {
                     {favoriteWorkouts.map((workout) => (
                         <div key={workout.workout_id} className="mb-2 bg-slate-700 w-1/3 rounded-xl p-4">
                             <p className="font-semibold text-blue-600 mb-2 dark:text-blue-300">{workout.name}</p>
-                            <p className="text-sm text-gray-600 text-white font-semibold">Muscle Group: {workout.muscle}</p>
+                            <p className="text-sm text-white font-semibold">Muscle Group: {workout.muscle}</p>
                         </div>
                     ))}
                 </div>

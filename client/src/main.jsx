@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <GoogleOAuthProvider clientId="221757686039-ncqnvml40hujqs1dbqcegpahu566o5r2.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId={import.meta.env.VITE_OAUTH_PROVIDER}>
           <QueryClientProvider client={queryClient}>
             <App />
           </QueryClientProvider>

@@ -6,6 +6,7 @@ import PasswordTab from "../components/Settings/PasswordTab";
 import GoalsTab from "../components/Settings/GoalsTab";
 import FavoritedWorkoutsTab from "../components/Settings/FavoritedWorkoutsTab";
 import CalculatorTab from "../components/Settings/CalculatorTab";
+import TrainerGPTTab from "../components/Settings/TrainerGPTTab";
 
 const SettingPage = () => {
   const [currentTab, setCurrentTab] = useState("UserInfo");
@@ -22,6 +23,7 @@ const SettingPage = () => {
         {currentTab === "Favorites" && <FavoritedWorkoutsTab />}
         {currentTab === "Goals" && <GoalsTab />}
         {currentTab === "Calculator" && <CalculatorTab />}
+        {currentTab === "FitnessAI" && <TrainerGPTTab />}
       </div>
       <CustomToasts className="mx-auto" />
     </div>

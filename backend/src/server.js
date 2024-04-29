@@ -10,6 +10,7 @@ const workoutsRoute = require("./routes/workoutsRoute.js");
 const favoriteWorkoutsRoute = require('./routes/favoriteWorkoutsRoute.js');
 const dailyFoodsRoute = require("./routes/dailyFoodsRoute.js");
 const videosRoute = require("./routes/videoRoute.js")
+const gptRoute = require("./routes/gptRoute.js")
 const cloudinary = require("cloudinary").v2;
 
 const app = express();
@@ -32,6 +33,8 @@ app.use("/api/dailyFoods", dailyFoodsRoute);
 app.use('/api/favoriteWorkouts', favoriteWorkoutsRoute)
 app.use("/api/workouts", workoutsRoute);
 app.use("/api/videos", videosRoute)
+app.use("/api/gpt", gptRoute)
+
 
 
 app.listen(3001, () => {
