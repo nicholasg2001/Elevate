@@ -8,7 +8,6 @@ import { dailyWorkoutAPI } from "./services/DailyWorkoutService";
 import { videoAPI } from "./services/VideoService";
 import { dailyFoodAPI } from "./services/DailyFoodService";
 import { favoriteWorkoutsAPI } from "./services/FavoriteWorkoutsService";
-import { gptAPI } from "./services/GPTService";
 
 const store = configureStore({
   reducer: {
@@ -20,7 +19,6 @@ const store = configureStore({
     [dailyFoodAPI.reducerPath]: dailyFoodAPI.reducer,
     [videoAPI.reducerPath]: videoAPI.reducer,
     [favoriteWorkoutsAPI.reducerPath]: favoriteWorkoutsAPI.reducer,
-    [gptAPI.reducerPath]: gptAPI.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
@@ -30,7 +28,6 @@ const store = configureStore({
       .concat(dailyFoodAPI.middleware)
       .concat(videoAPI.middleware)
       .concat(favoriteWorkoutsAPI.middleware)
-      .concat(gptAPI.middleware)
 });
 
 export default store;

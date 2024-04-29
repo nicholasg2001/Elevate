@@ -1,16 +1,21 @@
 import { useState } from 'react';
-import { useGetGPTResponseQuery } from '../../redux/services/GPTService';
+import axios from 'axios';
 
 const TrainerGPTTab = () => {
     const [inputValue, setInputValue] = useState('');
     const [conversation, setConversation] = useState([]);
-    const { data: response } = useGetGPTResponseQuery(inputValue);
 
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         if (inputValue.trim() === '') return; // Validate not empty string
         
-        setConversation([...conversation, { prompt: inputValue, response }]);
-        setInputValue('');
+        try {
+            const response = await axios.post('http://localhost:3001/api/gpt/sendMessage', { message: inputValue });
+            const responseData = response.data;
+            setConversation([...conversation, { prompt: inputValue, response: responseData }]);
+            setInputValue('');
+        } catch (error) {
+            console.error('Error sending message:', error);
+        }
     };
 
     return (
@@ -19,12 +24,12 @@ const TrainerGPTTab = () => {
                 <div className="bg-color7 dark:bg-slate-800 text-gray-700 dark:text-white text-center font-poppins p-4 text-2xl rounded-t-lg">
                     Elevate Fitness AI  
                 </div>
-                <div className="h-56 overflow-y-scroll">
-                    <ul className="list-none m-0 p-2">
+                <div className="h-96 overflow-y-scroll">
+                    <ul className="text-gray-700 list-none m-0 p-2">
                         {conversation.map((message, index) => (
-                            <li key={index}>
+                            <li className="py-1" key={index}>
                                 <strong>User:</strong> {message.prompt}<br />
-                                <strong>AI:</strong> {message.response}
+                                <strong>AI:</strong> {message.response.fitnessAdvice}
                             </li>
                         ))}
                     </ul>
