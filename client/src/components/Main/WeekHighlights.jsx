@@ -42,7 +42,7 @@ const WeekHighlights = () => {
           </div>
         </div>
         )
-        : (<div className="bg-cyan-600 rounded-xl shadow-lg h-3/4 p-4">
+        : (<div className="bg-gradient-to-t from-blue-800 via-blue-500 to-cyan-500 dark:from-darkColor1 dark:to-darkColor2 rounded-xl shadow-lg h-3/4 p-4">
           <h1 className="text-center font-bold text-2xl text-white mb-4">Week Highlights</h1>
           <ul className="text-white text-sm list-disc list-inside">
             <li>New deadlift record!</li>
