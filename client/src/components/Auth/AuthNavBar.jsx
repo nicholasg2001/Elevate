@@ -36,13 +36,6 @@ const AuthNavBar = () => {
               <Toggle />
             </div>
           </Dropdown.Header>
-
-          <Link to={"/auth/dashboard"}>
-            <Dropdown.Item className="font-poppins text-black">
-              {" "}
-              Dashboard{" "}
-            </Dropdown.Item>
-          </Link>
           <Link to={"/auth/setting"}>
             <Dropdown.Item className="font-poppins text-black">
               Settings
