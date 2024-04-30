@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { LineData } from "../data";
-const WeeklyStepChart = () => {
+const WeeklyWaterChart = () => {
   const [lineChartData, setLineData] = useState({
     labels: LineData.map((data) => data.day),
     datasets: [
       {
-        label: "Weekly Steps Report",
+        label: "Weekly Water Report (oz)",
         backgroundColor: [
           "#b87a44",
           "#eeb111",
@@ -17,7 +17,7 @@ const WeeklyStepChart = () => {
           "#34b233",
           "#dc4cdc",
         ],
-        data: LineData.map((data) => data.steps),
+        data: LineData.map((data) => data.oz),
       },
     ],
   });
@@ -28,4 +28,4 @@ const WeeklyStepChart = () => {
   );
 };
 
-export default WeeklyStepChart;
+export default WeeklyWaterChart;

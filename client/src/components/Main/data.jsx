@@ -15,32 +15,32 @@ export const PieData = [
 export const LineData = [
   {
     day: "Monday",
-    steps: 4210,
+    oz: 104,
   },
 
   {
     day: "Tuesday",
-    steps: 4500,
+    oz: 102,
   },
   {
     day: "Wednesday",
-    steps: 3000,
+    oz: 120,
   },
   {
     day: "Thursday",
-    steps: 7000,
+    oz: 120,
   },
   {
     day: "Friday",
-    steps: 5000,
+    oz: 140,
   },
   {
     day: "Saturday",
-    steps: 1000,
+    oz: 104,
   },
   {
     day: "Sunday",
-    steps: 1500,
+    oz: 120,
   },
 ];
 
