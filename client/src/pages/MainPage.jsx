@@ -25,14 +25,14 @@ const MainPage = () => {
   return (
     <>
       <div className="flex justify-center bg-gradient-to-b from-color7 to-color3 dark:from-darkColor1 dark:to-darkColor2 w-screen h-screen">
-        <div className="flex flex-col h-full w-3/4 bg-gray-200 rounded-xl justify-center px-10 gap-10">
-          <h1 className="text-5xl font-bold text-center">Weekly Report</h1>
+        <div className="flex flex-col h-full w-3/4 bg-gray-200 dark:bg-gray-700 rounded-xl justify-center px-10 gap-10">
+          <h1 className="text-5xl font-bold text-center dark:text-white">Weekly Report</h1>
           <div className="flex gap-14 w-full h-1/2">
             <div className="w-3/4 flex justify-center items-center bg-white rounded-lg">
               <WeeklyStepChart />
             </div>
             <div className="flex flex-col w-1/4 gap-10">
-              <div className="bg-gradient-to-t from-blue-800 via-blue-500 to-cyan-500 h-1/6 cursor-pointer rounded-xl flex justify-center items-center gap-4">
+              <div className="bg-gradient-to-t from-blue-800 via-blue-500 to-cyan-500 dark:from-darkColor1 dark:to-darkColor2 h-1/6 cursor-pointer rounded-xl flex justify-center items-center gap-4">
                 <div className="bg-white rounded-xl flex justify-center items-center h-1/2 w-1/4">
                   <GiConverseShoe size={30} />
                 </div>
