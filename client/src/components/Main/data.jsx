@@ -12,6 +12,38 @@ export const PieData = [
     reps: 300,
   },
 ];
+export const LineData = [
+  {
+    day: "Monday",
+    oz: 104,
+  },
+
+  {
+    day: "Tuesday",
+    oz: 102,
+  },
+  {
+    day: "Wednesday",
+    oz: 120,
+  },
+  {
+    day: "Thursday",
+    oz: 120,
+  },
+  {
+    day: "Friday",
+    oz: 140,
+  },
+  {
+    day: "Saturday",
+    oz: 104,
+  },
+  {
+    day: "Sunday",
+    oz: 120,
+  },
+];
+
 export const BarData = [
   {
     day: "Monday",
