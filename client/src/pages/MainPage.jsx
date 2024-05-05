@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import GoogleSignInModal from "../components/Modals/GoogleSignInModal";
 import { openGoogleSetupModal } from "../redux/feats/global/globalSlice";
 import { useAppDispatch, useAppSelector } from "../redux/store";
+import { FaChartLine } from "react-icons/fa";
+import { isAdminUser } from "../components/UniversalUtils";
 import WeeklyCaloriesChart from "../components/Main/Charts/WeeklyCaloriesChart";
 import WeeklyStepChart from "../components/Main/Charts/WeeklyWaterChart";
 import WeeklyWorkoutsChart from "../components/Main/Charts/WeeklyWorkoutsChart";
 import CustomToasts from "../components/Toasts/CustomToasts";
-import { FaChartLine } from "react-icons/fa";
 import StepsOverview from "../components/Main/StepsOverview";
 import BikeOverview from "../components/Main/BikeOverview";
 import RunningOverview from "../components/Main/RunningOverview";
@@ -22,6 +23,7 @@ const MainPage = () => {
     { chart: 'workouts', name: 'Weekly Workouts' }
   ];
   const [currentChartIndex, setCurrentChartIndex] = useState(0);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const renderChart = () => {
     switch (charts[currentChartIndex].chart) {
@@ -40,6 +42,7 @@ const MainPage = () => {
     if (!user.height || !user.weight) {
       dispatch(openGoogleSetupModal());
     }
+    setIsAdmin(isAdminUser(user));
   }, []);
   return (
     <>
@@ -47,9 +50,17 @@ const MainPage = () => {
         <div className="flex flex-col h-full w-full md:w-3/4 bg-gray-200 dark:bg-gray-700 md:rounded-xl justify-center px-10 gap-10">
           <h1 className="text-5xl font-bold ml-4 dark:text-white font-poppins text-center md:text-left">Weekly Report</h1>
           <div className="flex gap-4 md:gap-10 lg:gap-14 w-full h-1/2">
-            <div className="md:w-3/4 w-1/2 flex justify-center items-center bg-white rounded-lg">
-              {renderChart()}
-            </div>
+            {
+              isAdminUser ? (
+                <div className="md:w-3/4 w-1/2 flex justify-center items-center bg-white rounded-lg">
+                  {renderChart()}
+                </div>
+              ) :
+                (<div>
+                  Not Enough Information
+                </div>)
+            }
+
             <div className="flex flex-col md:w-1/4 w-1/2 gap-10">
               <div className="bg-gradient-to-t from-blue-800 via-blue-500 to-cyan-500 dark:from-darkColor1 dark:to-darkColor2 h-1/6 cursor-pointer rounded-xl flex justify-center items-center gap-4"
                 onClick={() => setCurrentChartIndex((prevIndex) => (prevIndex + 1) % charts.length)}>
