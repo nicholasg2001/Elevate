@@ -22,7 +22,7 @@ const LoginBadge = ({ level, achieved }) => {
 
   return (
     <Tooltip content={<LoginToolTip requirement={days} />}>
-      <div className={`clip-rhombus ${badgeColor} w-32 h-32 flex justify-center items-center relative`}>
+      <div className={`clip-rhombus ${badgeColor} w-32 h-32 flex justify-center items-center relative cursor-pointer`}>
         <div className="flex flex-col items-center">
           <BsFire size={35} color={iconColor} />
           <span className={`${textColor} font-semibold`}>Daily Login</span>

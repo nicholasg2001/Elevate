@@ -25,7 +25,7 @@ const CardioBadge = ({ level, achieved }) => {
 
   return (
     <Tooltip content={<CardioToolTip requirement={milesRan}/>}>
-      <div className={`clip-rhombus ${badgeColor} w-32 h-32 flex justify-center items-center relative`}>
+      <div className={`clip-rhombus ${badgeColor} w-32 h-32 flex justify-center items-center relative cursor-pointer`}>
         <div className="flex flex-col items-center">
           <IoFootstepsOutline size={35} color={iconColor} />
           <span className={`${textColor} font-semibold`}>Miles Ran</span>
