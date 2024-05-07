@@ -11,6 +11,11 @@ The Full Stack Fitness App is a dynamic platform designed to support fitness ent
 ## Features
 
 ### Weekly Dashboard
+- Recieve a past weekly report of fitness and dieting ranging from:
+  - Calories Consumed
+  - Water intake (oz)
+  - Top Workouts performed
+- See current progress in other activites such as biking, running, and steps (can be configured to other activities) 
 <img width="1512" alt="Screenshot 2024-05-07 at 3 32 49 PM" src="https://github.com/KyoshiNoda/Elevate/assets/62672803/6c7b61eb-e3ba-49a4-bc62-f66ba792d5ba">
 
 ### Daily Workout and Food Logs
