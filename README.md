@@ -43,11 +43,3 @@ The Full Stack Fitness App is a dynamic platform designed to support fitness ent
 
 ### Get AI generated workout advice
 <img width="1510" alt="Screenshot 2024-05-07 at 3 37 42 PM" src="https://github.com/KyoshiNoda/Elevate/assets/62672803/e7c88373-0298-4c40-9144-8d562084c6b7">
-
-## Getting Started
-Follow these instructions to set up the project locally.
-
-### Prerequisites
-- npm
-  ```sh
-  npm install npm@latest -g
