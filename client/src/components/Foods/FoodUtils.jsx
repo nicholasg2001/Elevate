@@ -35,7 +35,3 @@ export const translateKeyFoods = (response) => {
     },
   ];
 };
-
-export const getKeyFoodPercents = (response) => {
-    
-}
